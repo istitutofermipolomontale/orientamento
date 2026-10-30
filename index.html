@@ -5,578 +5,925 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Orientamento Scuola Superiore</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            /* Palette predefinita: viene sostituita dai colori del logo (vedi script) */
+            --brand: #1e40af;
+            --brand-2: #0284c7;
+            --accent: #f59e0b;
+            --brand-soft: #eaf1ff;
+            --brand-line: #d5e0f5;
+            --ink: #10203f;
+            --muted: #51607a;
+            --font: "Plus Jakarta Sans", "Poppins", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #dbeafe 0%, #fae8ff 50%, #fce7f3 100%);
+            font-family: var(--font);
+            color: var(--ink);
             min-height: 100vh;
-            padding: 24px;
+            padding: 28px 16px 48px;
+            background: linear-gradient(180deg, var(--brand-soft) 0%, #ffffff 58%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+            overflow-anchor: none; /* evita salti di scorrimento quando cambia il contenuto */
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        /* Sfere di colore sfumate, molto leggere */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 26s ease-in-out infinite alternate;
+        }
+        .orb.o1 { width: 380px; height: 380px; background: var(--brand);   top: -120px;  left: -100px; }
+        .orb.o2 { width: 420px; height: 420px; background: var(--brand-2); bottom: -140px; right: -120px; animation-delay: -10s; }
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(40px, -30px) scale(1.1); }
         }
 
-        .quiz-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            padding: 48px;
-            margin-bottom: 24px;
+        .shell { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+
+        .card {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid var(--brand-line);
+            border-radius: 28px;
+            box-shadow: 0 34px 60px -34px rgba(16, 32, 63, 0.4);
+            overflow: hidden;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .logo {
-            max-width: 200px;
-            height: auto;
-            margin: 0 auto 24px;
-            display: block;
-        }
-
-        .header h1 {
-            font-size: 36px;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            color: #6b7280;
-            font-size: 16px;
-        }
-
-        h3 {
-            font-size: 15px;
-            color: #1f2937;
-            margin-bottom: 24px;
-        }
-
-        .question-container {
-            margin-bottom: 24px;
-        }
-
-        h2 {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 24px;
-        }
-
-        .options {
+        /* Intestazione a fascia colorata */
+        .top {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            align-items: center;
+            gap: 22px;
+            padding: 26px 36px;
+            color: #ffffff;
+            background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        }
+        .logo-wrap {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 8px 14px;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.5);
+        }
+        .logo { max-width: 120px; max-height: 80px; height: auto; display: block; }
+
+        .eyebrow {
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            opacity: 0.92;
+            margin-bottom: 6px;
+        }
+        .top h1 {
+            font-size: clamp(28px, 5vw, 40px);
+            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            margin-bottom: 6px;
+        }
+        .top .lead { font-size: 16.5px; font-weight: 500; opacity: 0.95; }
+
+        /* Barra di avanzamento */
+        .bar { height: 6px; background: var(--brand-line); }
+        .bar-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--brand), var(--brand-2));
+            border-radius: 0 6px 6px 0;
+            transition: width 0.5s cubic-bezier(.2, .9, .2, 1);
         }
 
-        .option-button {
+        .note {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 22px 36px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--ink);
+            background: var(--brand-soft);
+            border-left: 4px solid var(--brand);
+            border-radius: 8px 14px 14px 8px;
+            padding: 12px 16px;
+        }
+
+        main { padding: 26px 36px 8px; }
+
+        /* Percorso scelto */
+        .crumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .crumb {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brand);
+            background: var(--brand-soft);
+            border: 1px solid var(--brand-line);
+            border-radius: 999px;
+            padding: 6px 13px;
+        }
+
+        .step { animation: rise 0.4s cubic-bezier(.2, .8, .2, 1) both; }
+        .step:focus { outline: none; }
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .qnum {
+            display: inline-block;
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ffffff;
+            background: var(--brand);
+            border-radius: 999px;
+            padding: 7px 15px;
+            margin-bottom: 14px;
+        }
+
+        .step h2 {
+            font-size: clamp(26px, 4.4vw, 34px);
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            color: var(--ink);
+            margin-bottom: 22px;
+        }
+
+        .options { display: flex; flex-direction: column; gap: 12px; }
+
+        .opt {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             width: 100%;
-            padding: 16px;
-            border: 2px solid;
-            border-radius: 8px;
             text-align: left;
-            font-size: 16px;
+            font: inherit;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--ink);
+            background: #ffffff;
+            border: 2px solid var(--brand-line);
+            border-radius: 20px;
+            padding: 12px 18px 12px 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
+            animation: rise 0.45s cubic-bezier(.2, .8, .2, 1) both;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+        .opt:hover {
+            transform: translateY(-3px);
+            border-color: var(--brand);
+            background: var(--brand-soft);
+            box-shadow: 0 16px 28px -18px var(--brand);
+        }
+        .opt:active { transform: translateY(0); }
+        .opt:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        .tile {
+            position: relative;
+            flex: 0 0 auto;
+            width: 58px; height: 58px;
+            display: grid; place-items: center;
+            border-radius: 16px;
+            background: linear-gradient(140deg, var(--brand), var(--brand-2));
+            box-shadow: 0 10px 18px -10px var(--brand);
+            transition: transform 0.25s cubic-bezier(.3, 1.6, .5, 1);
+        }
+        .opt:hover .tile { transform: rotate(-5deg) scale(1.08); }
+        .tile-ico { font-size: 28px; line-height: 1; }
+        .tile-ico.glyph { font-size: 28px; font-weight: 800; color: #ffffff; }
+
+        .letter {
+            position: absolute;
+            top: -7px; left: -7px;
+            width: 23px; height: 23px;
+            display: grid; place-items: center;
+            border-radius: 50%;
+            background: #ffffff;
+            color: var(--brand);
+            border: 2px solid var(--brand);
+            font-size: 11.5px;
+            font-weight: 800;
         }
 
-        .option-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        .txt { flex: 1 1 auto; }
+
+        .go {
+            flex: 0 0 auto;
+            width: 36px; height: 36px;
+            display: grid; place-items: center;
+            border-radius: 50%;
+            background: var(--brand-soft);
+            color: var(--brand);
+            font-weight: 800;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
         }
+        .opt:hover .go { background: var(--brand); color: #ffffff; transform: translateX(3px); }
 
-        .option-button span {
-            font-weight: 600;
-            margin-right: 8px;
-        }
-
-        /* Colori per le diverse opzioni */
-        .blue { background: #eff6ff; border-color: #93c5fd; }
-        .blue:hover { background: #dbeafe; }
-        .blue span { color: #1e3a8a; }
-
-        .green { background: #f0fdf4; border-color: #86efac; }
-        .green:hover { background: #dcfce7; }
-        .green span { color: #14532d; }
-
-        .purple { background: #faf5ff; border-color: #d8b4fe; }
-        .purple:hover { background: #f3e8ff; }
-        .purple span { color: #581c87; }
-
-        .pink { background: #fdf2f8; border-color: #f9a8d4; }
-        .pink:hover { background: #fce7f3; }
-        .pink span { color: #831843; }
-
-        .amber { background: #fffbeb; border-color: #fcd34d; }
-        .amber:hover { background: #fef3c7; }
-        .amber span { color: #78350f; }
-
-        .orange { background: #fff7ed; border-color: #fdba74; }
-        .orange:hover { background: #ffedd5; }
-        .orange span { color: #7c2d12; }
-
-        .teal { background: #f0fdfa; border-color: #5eead4; }
-        .teal:hover { background: #ccfbf1; }
-        .teal span { color: #134e4a; }
-
-        .red { background: #fef2f2; border-color: #fca5a5; }
-        .red:hover { background: #fee2e2; }
-        .red span { color: #7f1d1d; }
-
-        .yellow { background: #fefce8; border-color: #fde047; }
-        .yellow:hover { background: #fef9c3; }
-        .yellow span { color: #713f12; }
-
-        .indigo { background: #eef2ff; border-color: #a5b4fc; }
-        .indigo:hover { background: #e0e7ff; }
-        .indigo span { color: #312e81; }
-
-        .cyan { background: #ecfeff; border-color: #67e8f9; }
-        .cyan:hover { background: #cffafe; }
-        .cyan span { color: #164e63; }
-
-        .violet { background: #f5f3ff; border-color: #c4b5fd; }
-        .violet:hover { background: #ede9fe; }
-        .violet span { color: #5b21b6; }
-
-        .fuchsia { background: #fdf4ff; border-color: #f0abfc; }
-        .fuchsia:hover { background: #fae8ff; }
-        .fuchsia span { color: #701a75; }
-
-        .lime { background: #f7fee7; border-color: #bef264; }
-        .lime:hover { background: #ecfccb; }
-        .lime span { color: #365314; }
-
-        .emerald { background: #ecfdf5; border-color: #6ee7b7; }
-        .emerald:hover { background: #d1fae5; }
-        .emerald span { color: #064e3b; }
-
-        .sky { background: #f0f9ff; border-color: #7dd3fc; }
-        .sky:hover { background: #e0f2fe; }
-        .sky span { color: #0c4a6e; }
-
-        .slate { background: #f8fafc; border-color: #cbd5e1; }
-        .slate:hover { background: #f1f5f9; }
-        .slate span { color: #0f172a; }
-
-        .rose { background: #fff1f2; border-color: #fda4af; }
-        .rose:hover { background: #ffe4e6; }
-        .rose span { color: #881337; }
-
-        .back-button {
-            margin-top: 24px;
-            padding: 12px 24px;
-            background: #e5e7eb;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: #d1d5db;
-        }
-
-        .result-container {
-            background: linear-gradient(to right, #f0fdf4, #d1fae5);
-            padding: 48px;
-            border-radius: 12px;
-            border: 2px solid #86efac;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .result-icon {
-            text-align: center;
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
-
-        .result-title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #065f46;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .result-box {
-            background: white;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .result-text {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1f2937;
-            text-align: center;
-        }
-
-        .restart-button {
-            width: 100%;
-            padding: 16px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
+        /* Pulsanti */
+        .btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 24px;
-            transition: background 0.3s ease;
-        }
-
-        .restart-button:hover {
-            background: #1d4ed8;
-        }
-
-        .pdf-button {
+            gap: 10px;
             width: 100%;
-            padding: 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
+            font: inherit;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 16px;
+            padding: 16px 22px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 16px;
             text-decoration: none;
-            transition: background 0.3s ease;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+        .btn.primary {
+            border: 2px solid var(--brand);
+            background: var(--brand);
+            color: #ffffff;
+            box-shadow: 0 16px 28px -16px var(--brand);
+        }
+        .btn.primary:hover { transform: translateY(-2px); }
+        .btn.ghost {
+            background: #ffffff;
+            color: var(--ink);
+            border: 2px solid var(--brand-line);
+        }
+        .btn.ghost:hover { border-color: var(--brand); background: var(--brand-soft); transform: translateY(-2px); }
+
+        .back {
+            margin: 6px 36px 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--brand);
+            background: #ffffff;
+            border: 2px solid var(--brand-line);
+            border-radius: 999px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .back:hover { background: var(--brand-soft); border-color: var(--brand); transform: translateX(-3px); }
+        .back:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        /* Risultato */
+        .result { text-align: center; padding-bottom: 12px; }
+
+        .ring-wrap { position: relative; width: 132px; height: 132px; margin: 4px auto 22px; }
+        .ring {
+            position: relative;
+            width: 100%; height: 100%;
+            display: grid; place-items: center;
+            border-radius: 50%;
+            font-size: 62px;
+            animation: pop 0.6s cubic-bezier(.2, 1.4, .4, 1) both;
+        }
+        .ring::before {
+            content: "";
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: linear-gradient(140deg, var(--brand), var(--brand-2));
+            box-shadow: 0 18px 30px -14px var(--brand);
+        }
+        .ring::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+        .ring span { position: relative; z-index: 1; }
+        @keyframes pop {
+            from { transform: scale(0.6); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
         }
 
-        .pdf-button:hover {
-            background: #b91c1c;
+        .kicker {
+            display: inline-block;
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--brand);
+            background: var(--brand-soft);
+            border: 1px solid var(--brand-line);
+            border-radius: 999px;
+            padding: 7px 16px;
+            margin-bottom: 12px;
         }
+        .result h2 { margin-bottom: 18px; }
+
+        .school {
+            background: var(--brand-soft);
+            border: 2px solid var(--brand-line);
+            border-radius: 24px;
+            padding: 26px 20px;
+            margin-bottom: 22px;
+        }
+        .school-name {
+            font-size: clamp(26px, 5vw, 36px);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.6px;
+            color: var(--ink);
+        }
+        .school-sub {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #ffffff;
+            background: var(--brand);
+            border-radius: 999px;
+            padding: 7px 16px;
+        }
+
+        .actions { display: flex; flex-direction: column; gap: 12px; }
 
         .progress {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            color: #6b7280;
-            font-size: 14px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-top: 18px;
         }
 
-        .hidden {
-            display: none;
+        .confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            body { padding: 14px 10px 36px; }
+            .card { border-radius: 22px; }
+            .top { flex-direction: column; text-align: center; padding: 22px 18px; gap: 14px; }
+            .note { margin: 18px 18px 0; }
+            main { padding: 22px 18px 8px; }
+            .back { margin: 6px 18px 22px; }
+            .opt { font-size: 16.5px; gap: 13px; padding: 11px 14px 11px 11px; border-radius: 18px; }
+            .tile { width: 52px; height: 52px; border-radius: 14px; }
+            .tile-ico { font-size: 25px; }
+            .go { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="quiz-card">
-            <div class="header">
-                <img src="logo.png" alt="Logo Scuola" class="logo" id="school-logo">
-                <h1>Quiz Orientamento</h1>
-                <p>Scopri la scuola superiore più adatta a te</p><br>
-                <h3>Il test fornisce una risposta puramente indicativa. <br>Ti consigliamo di informarti e visitare le scuole per ottenere notizie e chiarimenti sui vari percorsi formativi</h3>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+
+    <div class="shell">
+        <div class="card">
+            <header class="top">
+                <div class="logo-wrap" id="logo-wrap"><img class="logo" id="school-logo" alt="Logo Scuola"></div>
+                <div>
+                    <div class="eyebrow">Orientamento &middot; Scuola Superiore</div>
+                    <h1>Quiz Orientamento</h1>
+                    <p class="lead">Scopri la scuola superiore più adatta a te</p>
+                </div>
+            </header>
+            <div class="bar"><div class="bar-fill" id="bar-fill"></div></div>
+
+            <div class="note">
+                <span aria-hidden="true">💡</span>
+                <span>Il test fornisce una risposta puramente indicativa. Ti consigliamo di informarti e visitare le scuole per ottenere notizie e chiarimenti sui vari percorsi formativi.</span>
             </div>
 
-            <div id="quiz-content"></div>
+            <main id="quiz-content"></main>
 
-            <button id="back-button" class="back-button hidden" onclick="goBack()">
-                ← Torna indietro
-            </button>
+            <button id="back-button" class="back hidden" type="button">&larr; Torna indietro</button>
         </div>
 
-        <div class="progress" id="progress">Passo 1 del percorso</div>
+        <div class="progress" id="progress">Passo 1</div>
     </div>
 
     <script>
-        let currentStep = 'start';
-        let history = [];
-        let result = null;
-        let pdfLink = null;
+        // ================== CONFIGURAZIONE ==================
+        // Percorso del logo della scuola (se il file manca, il logo viene nascosto)
+        const LOGO_PATH = "logo.png";
 
-        // Configurazione: inserisci qui il percorso del tuo logo
-        const LOGO_PATH = 'logo.png'; // Modifica questo con il percorso del tuo logo
+        // Colori: il quiz prova a prenderli in automatico dal logo.
+        // Se il quiz e' pubblicato su un sito funziona; se lo apri come file sul computer
+        // il browser lo blocca e vengono usati i colori predefiniti (blu).
+        const COLORI_DAL_LOGO = true;
 
-        // Mappa dei percorsi PDF per ogni risultato
-        const PDF_LINKS = {
-            'CAT - Costruzione Ambiente e Territorio': 'cat.pdf',
-            'Liceo delle Scienze Applicate': 'liceo-scienze.pdf',
-            'Turistico': 'turistico.pdf',
-            'RIM - Relazioni Internazionali e Marketing': 'rim.pdf',
-            'AFM - Amministrazione Finanza e Marketing': 'afm.pdf',
-            'Web Community Manager': 'web-community.pdf',
-            'Socio Sanitario': 'socio-sanitario.pdf',
-            'Ottico': 'ottico.pdf'
+        // Per fissare i colori a mano, scrivi due colori esadecimali, ad esempio:
+        // const COLORI_MANUALI = { primario: "#1d4ed8", secondario: "#0ea5e9" };
+        // Usa un primario abbastanza scuro, cosi' il testo bianco resta leggibile.
+        const COLORI_MANUALI = null;
+
+        // Indirizzi di studio: nome, icona, eventuale sottotitolo e PDF collegato
+        const SCHOOLS = {
+            CAT:   { name: "CAT - Costruzione Ambiente e Territorio",    icon: "🏗️", pdf: "cat.pdf" },
+            LICEO: { name: "Liceo delle Scienze Applicate",              icon: "🔬", pdf: "liceo-scienze.pdf" },
+            TUR:   { name: "Turistico",                                  icon: "🧭", pdf: "turistico.pdf" },
+            RIM:   { name: "RIM - Relazioni Internazionali e Marketing", icon: "🌍", pdf: "rim.pdf" },
+            AFM:   { name: "AFM - Amministrazione Finanza e Marketing",  icon: "📊", pdf: "afm.pdf" },
+            WEB:   { name: "Web Community Manager",                      icon: "📱", pdf: "web-community.pdf" },
+            SOC:   { name: "Socio Sanitario",                            icon: "🩺", pdf: "socio-sanitario.pdf" },
+            OTT:   { name: "Ottico",                                     icon: "👓", pdf: "ottico.pdf" },
+            MAN:   { name: "Manutenzione ed Assistenza Tecnica", sub: "curvatura nautica", icon: "⚙️", pdf: "manutenzione-assistenza.pdf" }
         };
 
-        // Imposta il logo all'avvio
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('school-logo').src = LOGO_PATH;
-        });
+        // Domande e risposte: "next" porta a un'altra domanda, "result" porta a un indirizzo
+        const STEPS = {
+            start: {
+                title: "Cosa ti aspetti dopo il percorso della scuola superiore?",
+                options: [
+                    { l: "1", icon: "🎓", text: "Proseguire con gli studi universitari", next: "studio" },
+                    { l: "2", icon: "💼", text: "Inserirmi nel mercato del lavoro",       next: "lavoro" }
+                ]
+            },
 
-        function renderStep() {
-            const content = document.getElementById('quiz-content');
-            const backButton = document.getElementById('back-button');
-            const progress = document.getElementById('progress');
+            // ---------- Ramo: studi universitari ----------
+            studio: {
+                title: "Preferisci studiare...",
+                options: [
+                    { l: "a", icon: "🧪", text: "Materie di tipo tecnologico o scientifico", next: "studio_tech" },
+                    { l: "b", icon: "🗣️", text: "Lingue straniere",                         next: "studio_lingue" },
+                    { l: "c", icon: "⚖️", text: "Diritto ed economia",                      next: "studio_economia" },
+                    { l: "d", icon: "🩺", text: "Materie in ambito medico-sanitario",        next: "studio_sanitario" }
+                ]
+            },
+            studio_tech: {
+                title: "Da grande ti immagini...",
+                options: [
+                    { l: "x", icon: "🏗️", text: "In un cantiere",                      result: "CAT" },
+                    { l: "y", icon: "🔬", text: "In laboratorio chimico o informatico", result: "LICEO" }
+                ]
+            },
+            studio_lingue: {
+                title: "Ti incuriosisce studiare di più...",
+                options: [
+                    { l: "x", glyph: "Я", text: "Il russo",   result: "TUR" },
+                    { l: "y", glyph: "ß", text: "Il tedesco", result: "RIM" }
+                ]
+            },
+            studio_economia: {
+                title: "Ti interessa di più occuparti di impresa...",
+                options: [
+                    { l: "x", icon: "🏢", text: "In Italia",  result: "AFM" },
+                    { l: "y", icon: "🌐", text: "All'Estero", result: "RIM" }
+                ]
+            },
+            studio_sanitario: {
+                title: "Preferisci occuparti...",
+                options: [
+                    { l: "x", icon: "🫶", text: "Del benessere psicofisico della persona (ambito socio sanitario)", result: "SOC" },
+                    { l: "y", icon: "👁️", text: "Dei problemi della vista (oculistica)",                            result: "OTT" }
+                ]
+            },
 
-            // Mostra/nascondi pulsante indietro
-            if (history.length > 0 && currentStep !== 'result') {
-                backButton.classList.remove('hidden');
+            // ---------- Ramo: mondo del lavoro ----------
+            lavoro: {
+                title: "Preferisci occuparti di...",
+                options: [
+                    { l: "a", icon: "💶", text: "Economia e marketing",                                                  next: "lavoro_economia" },
+                    { l: "b", icon: "🗣️", text: "Lingue straniere",                                                     next: "lavoro_lingue" },
+                    { l: "c", icon: "🩺", text: "Professioni sanitarie",                                                 next: "lavoro_sanitarie" },
+                    { l: "d", icon: "📐", text: "Disegno tecnico",                                                       result: "CAT" },
+                    { l: "e", icon: "🔧", text: "Materie pratiche: impianti elettrici, meccanica e assistenza tecnica",  result: "MAN" },
+                    { l: "f", icon: "📱", text: "Web e Social Network in azienda",                                       result: "WEB" }
+                ]
+            },
+            lavoro_economia: {
+                title: "Preferisci occuparti di...",
+                options: [
+                    { l: "x", icon: "🏢", text: "Diritto ed economia in ambito nazionale",       result: "AFM" },
+                    { l: "y", icon: "🌐", text: "Diritto ed economia in ambito internazionale",  result: "RIM" },
+                    { l: "z", icon: "💻", text: "Diritto ed economia in ambito informatico web", result: "WEB" }
+                ]
+            },
+            lavoro_lingue: {
+                title: "Ti incuriosisce di più studiare...",
+                options: [
+                    { l: "x", glyph: "Я", text: "Russo",   result: "TUR" },
+                    { l: "y", glyph: "ß", text: "Tedesco", result: "RIM" }
+                ]
+            },
+            lavoro_sanitarie: {
+                title: "Preferisci occuparti...",
+                options: [
+                    { l: "x", icon: "🫶", text: "Del benessere psicofisico della persona", result: "SOC" },
+                    { l: "y", icon: "👁️", text: "Dei problemi della vista",               result: "OTT" }
+                ]
+            }
+        };
+        // ====================================================
+
+        // ---------- Colori dal logo ----------
+        function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+
+        function hueDist(a, b) {
+            const d = Math.abs(a - b) % 360;
+            return d > 180 ? 360 - d : d;
+        }
+
+        function rgbToHsl(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            const l = (max + min) / 2;
+            const d = max - min;
+            let h = 0, s = 0;
+            if (d !== 0) {
+                s = d / (1 - Math.abs(2 * l - 1));
+                if (max === r) h = ((g - b) / d) % 6;
+                else if (max === g) h = (b - r) / d + 2;
+                else h = (r - g) / d + 4;
+                h *= 60;
+                if (h < 0) h += 360;
+            }
+            return [h, s, l];
+        }
+
+        function hexToHsl(hex) {
+            const m = /^#?([0-9a-f]{6})$/i.exec(hex || "");
+            if (!m) return null;
+            const n = parseInt(m[1], 16);
+            return rgbToHsl((n >> 16) & 255, (n >> 8) & 255, n & 255);
+        }
+
+        function hsl(h, s, l) {
+            return "hsl(" + Math.round(h) + ", " + Math.round(s) + "%, " + Math.round(l) + "%)";
+        }
+
+        function setTheme(t) {
+            const st = document.documentElement.style;
+            st.setProperty("--brand", t.brand);
+            st.setProperty("--brand-2", t.brand2);
+            st.setProperty("--accent", t.accent);
+            st.setProperty("--brand-soft", t.soft);
+            st.setProperty("--brand-line", t.line);
+            st.setProperty("--ink", t.ink);
+            st.setProperty("--muted", t.muted);
+        }
+
+        // Costruisce la palette partendo da due tinte (primaria e secondaria)
+        function applyHues(h1, s1, h2, s2) {
+            const S1 = clamp(s1 * 100, 55, 85);
+            const S2 = clamp(s2 * 100, 55, 85);
+            setTheme({
+                brand:  hsl(h1, S1, 36),
+                brand2: hsl(h2, S2, 46),
+                accent: hsl(h2, S2, 52),
+                soft:   hsl(h1, 75, 96),
+                line:   hsl(h1, 35, 87),
+                ink:    hsl(h1, 50, 13),
+                muted:  hsl(h1, 18, 38)
+            });
+        }
+
+        function applyManual(c) {
+            const a = hexToHsl(c.primario);
+            const b = hexToHsl(c.secondario);
+            if (!a) return;
+            const h2 = b ? b[0] : (a[0] + 30) % 360;
+            setTheme({
+                brand:  c.primario,
+                brand2: b ? c.secondario : hsl(h2, 70, 46),
+                accent: hsl(h2, 75, 52),
+                soft:   hsl(a[0], 75, 96),
+                line:   hsl(a[0], 35, 87),
+                ink:    hsl(a[0], 50, 13),
+                muted:  hsl(a[0], 18, 38)
+            });
+        }
+
+        // Legge i colori dominanti dal logo. Restituisce null se non riesce
+        // (ad esempio logo in bianco e nero, oppure file aperto in locale).
+        function extractBrand(img) {
+            try {
+                const w = 64;
+                const ratio = (img.naturalWidth > 0) ? img.naturalHeight / img.naturalWidth : 1;
+                const h = Math.max(8, Math.round(w * ratio));
+                const cv = document.createElement("canvas");
+                cv.width = w; cv.height = h;
+                const ctx = cv.getContext("2d");
+                ctx.drawImage(img, 0, 0, w, h);
+                const d = ctx.getImageData(0, 0, w, h).data;
+
+                const buckets = [];
+                for (let i = 0; i < 24; i++) buckets.push({ w: 0, x: 0, y: 0, s: 0 });
+
+                let total = 0;
+                for (let i = 0; i < d.length; i += 4) {
+                    if (d[i + 3] < 200) continue;
+                    const c = rgbToHsl(d[i], d[i + 1], d[i + 2]);
+                    if (c[1] < 0.28 || c[2] < 0.12 || c[2] > 0.92) continue;
+                    const wt = c[1] * (1 - Math.abs(2 * c[2] - 1));
+                    const b = buckets[Math.floor(c[0] / 15) % 24];
+                    const rad = c[0] * Math.PI / 180;
+                    b.w += wt;
+                    b.x += Math.cos(rad) * wt;
+                    b.y += Math.sin(rad) * wt;
+                    b.s += c[1] * wt;
+                    total += wt;
+                }
+                if (total < 20) return null;
+
+                const list = buckets.filter(function (b) { return b.w > 0; })
+                                    .sort(function (a, b) { return b.w - a.w; });
+                if (!list.length) return null;
+
+                function hueOf(b) {
+                    let deg = Math.atan2(b.y, b.x) * 180 / Math.PI;
+                    if (deg < 0) deg += 360;
+                    return deg;
+                }
+
+                const p = list[0];
+                const h1 = hueOf(p);
+                const s1 = p.s / p.w;
+                let h2 = null, s2 = null;
+                for (let i = 1; i < list.length; i++) {
+                    const b = list[i];
+                    if (b.w >= p.w * 0.15 && hueDist(hueOf(b), h1) >= 40) {
+                        h2 = hueOf(b);
+                        s2 = b.s / b.w;
+                        break;
+                    }
+                }
+                if (h2 === null) { h2 = (h1 + 30) % 360; s2 = s1; }
+                return { h1: h1, s1: s1, h2: h2, s2: s2 };
+            } catch (e) {
+                return null;
+            }
+        }
+        // ------------------------------------
+
+        let currentStep = "start";
+        let history = [];   // elementi: { step, label }
+        let resultKey = null;
+
+        const content = document.getElementById("quiz-content");
+        const backButton = document.getElementById("back-button");
+        const progress = document.getElementById("progress");
+        const barFill = document.getElementById("bar-fill");
+        const logo = document.getElementById("school-logo");
+        const logoWrap = document.getElementById("logo-wrap");
+
+        if (COLORI_MANUALI) applyManual(COLORI_MANUALI);
+
+        logo.onerror = function () { logoWrap.style.display = "none"; };
+        logo.onload = function () {
+            if (COLORI_MANUALI || !COLORI_DAL_LOGO) return;
+            const b = extractBrand(logo);
+            if (b) applyHues(b.h1, b.s1, b.h2, b.s2);
+        };
+        logo.src = LOGO_PATH;
+
+        function el(tag, className, text) {
+            const node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text !== undefined) node.textContent = text;
+            return node;
+        }
+
+        function renderCrumbs(parent) {
+            if (history.length === 0) return;
+            const box = el("div", "crumbs");
+            history.forEach(function (h) { box.appendChild(el("span", "crumb", "✓ " + h.label)); });
+            parent.appendChild(box);
+        }
+
+        function renderQuestion() {
+            const step = STEPS[currentStep];
+            const wrap = el("div", "step");
+
+            renderCrumbs(wrap);
+            wrap.appendChild(el("span", "qnum", "Domanda " + (history.length + 1)));
+            wrap.appendChild(el("h2", null, step.title));
+
+            const list = el("div", "options");
+            step.options.forEach(function (opt, i) {
+                const btn = el("button", "opt");
+                btn.type = "button";
+                btn.style.animationDelay = (i * 60) + "ms";
+
+                const tile = el("span", "tile");
+                if (opt.glyph) {
+                    tile.appendChild(el("span", "tile-ico glyph", opt.glyph));
+                } else {
+                    tile.appendChild(el("span", "tile-ico", opt.icon));
+                }
+                tile.appendChild(el("span", "letter", opt.l));
+
+                btn.appendChild(tile);
+                btn.appendChild(el("span", "txt", opt.text));
+                btn.appendChild(el("span", "go", "→"));
+                btn.addEventListener("click", function () { choose(opt); });
+                list.appendChild(btn);
+            });
+            wrap.appendChild(list);
+            return wrap;
+        }
+
+        function renderResult() {
+            const school = SCHOOLS[resultKey];
+            const wrap = el("div", "step result");
+
+            const ringWrap = el("div", "ring-wrap");
+            const ring = el("div", "ring");
+            ring.appendChild(el("span", null, school.icon));
+            ringWrap.appendChild(ring);
+            wrap.appendChild(ringWrap);
+
+            wrap.appendChild(el("span", "kicker", "Il tuo risultato"));
+            wrap.appendChild(el("h2", null, "Il tuo percorso ideale!"));
+
+            const box = el("div", "school");
+            box.appendChild(el("div", "school-name", school.name));
+            if (school.sub) box.appendChild(el("span", "school-sub", school.sub));
+            wrap.appendChild(box);
+
+            const actions = el("div", "actions");
+            if (school.pdf) {
+                const pdf = el("a", "btn primary", "📄 Scarica la brochure informativa (PDF)");
+                pdf.href = school.pdf;
+                pdf.target = "_blank";
+                pdf.rel = "noopener";
+                actions.appendChild(pdf);
+            }
+            const again = el("button", "btn ghost", "🔄 Ricomincia il quiz");
+            again.type = "button";
+            again.addEventListener("click", restart);
+            actions.appendChild(again);
+            wrap.appendChild(actions);
+
+            return wrap;
+        }
+
+        // Pioggia di coriandoli (breve, solo al risultato)
+        function burst() {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+            const old = document.querySelector("canvas.confetti");
+            if (old) old.remove();
+
+            const cs = getComputedStyle(document.documentElement);
+            const palette = [
+                cs.getPropertyValue("--brand").trim(),
+                cs.getPropertyValue("--brand-2").trim(),
+                cs.getPropertyValue("--accent").trim(),
+                "#f59e0b", "#22c55e", "#ec4899"
+            ].filter(Boolean);
+
+            const cv = document.createElement("canvas");
+            cv.className = "confetti";
+            document.body.appendChild(cv);
+            const ctx = cv.getContext("2d");
+            const dpr = window.devicePixelRatio || 1;
+            cv.width = window.innerWidth * dpr;
+            cv.height = window.innerHeight * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            const parts = [];
+            for (let i = 0; i < 130; i++) {
+                parts.push({
+                    x: window.innerWidth / 2 + (Math.random() - 0.5) * 140,
+                    y: window.innerHeight * 0.4,
+                    vx: (Math.random() - 0.5) * 14,
+                    vy: -Math.random() * 14 - 4,
+                    g: 0.36 + Math.random() * 0.15,
+                    w: 6 + Math.random() * 6,
+                    h: 8 + Math.random() * 8,
+                    r: Math.random() * 6.28,
+                    vr: (Math.random() - 0.5) * 0.4,
+                    c: palette[Math.floor(Math.random() * palette.length)]
+                });
+            }
+
+            const DURATION = 2800;
+            let t0 = null;
+            function frame(t) {
+                if (t0 === null) t0 = t;
+                const elapsed = t - t0;
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                parts.forEach(function (p) {
+                    p.vy += p.g;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vx *= 0.99;
+                    p.r += p.vr;
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, 1 - elapsed / DURATION);
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.r);
+                    ctx.fillStyle = p.c;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                });
+                if (elapsed < DURATION) {
+                    requestAnimationFrame(frame);
+                } else {
+                    cv.remove();
+                }
+            }
+            requestAnimationFrame(frame);
+        }
+
+        // Disegna la schermata corrente SENZA spostare la pagina.
+        function render(moveFocus) {
+            const y = window.scrollY;
+            const x = window.scrollX;
+
+            content.innerHTML = "";
+            const isResult = currentStep === "result";
+            const node = isResult ? renderResult() : renderQuestion();
+            content.appendChild(node);
+
+            backButton.classList.toggle("hidden", history.length === 0);
+
+            if (isResult) {
+                progress.textContent = "Percorso completato 🎉";
+                barFill.style.width = "100%";
             } else {
-                backButton.classList.add('hidden');
+                progress.textContent = "Passo " + (history.length + 1);
+                barFill.style.width = Math.min(85, (history.length + 1) * 30) + "%";
             }
 
-            // Aggiorna progresso
-            progress.textContent = `Passo ${history.length + 1} del percorso`;
+            // Mantiene esattamente la posizione di scorrimento di prima
+            window.scrollTo({ top: y, left: x, behavior: "instant" });
 
-            switch (currentStep) {
-                case 'start':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Cosa ti aspetti dopo il percorso della scuola superiore?</h2>
-                            <div class="options">
-                                <button class="option-button blue" onclick="handleChoice('studio', 1)">
-                                    <span>1)</span> Proseguire con gli studi universitari
-                                </button>
-                                <button class="option-button green" onclick="handleChoice('lavoro', 2)">
-                                    <span>2)</span> Inserirmi nel mercato del lavoro
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
+            // Sposta il focus (utile da tastiera) senza far scorrere la pagina
+            if (moveFocus) {
+                let target = null;
+                if (isResult) {
+                    node.setAttribute("tabindex", "-1");
+                    target = node;
+                } else {
+                    target = node.querySelector(".opt");
+                }
+                if (target) target.focus({ preventScroll: true });
+            }
 
-                case 'studio':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Preferisci studiare...</h2>
-                            <div class="options">
-                                <button class="option-button purple" onclick="handleChoice('studio_tech', 'a')">
-                                    <span>a)</span> Materie di tipo tecnologico o scientifico
-                                </button>
-                                <button class="option-button pink" onclick="handleChoice('studio_lingue', 'b')">
-                                    <span>b)</span> Lingue straniere
-                                </button>
-                                <button class="option-button amber" onclick="handleChoice('studio_economia', 'c')">
-                                    <span>c)</span> Diritto ed economia
-                                </button>
-                                <button class="option-button rose" onclick="handleChoice('studio_sanitario', 'd')">
-                                    <span>d)</span> Materie in ambito medico-sanitario
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'studio_tech':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Da grande ti immagini...</h2>
-                            <div class="options">
-                                <button class="option-button orange" onclick="handleResult('CAT - Costruzione Ambiente e Territorio')">
-                                    <span>x)</span> In un cantiere
-                                </button>
-                                <button class="option-button teal" onclick="handleResult('Liceo delle Scienze Applicate')">
-                                    <span>y)</span> In laboratorio chimico o informatico
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'studio_lingue':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Ti incuriosisce studiare di più...</h2>
-                            <div class="options">
-                                <button class="option-button red" onclick="handleResult('Turistico')">
-                                    <span>x)</span> Il russo
-                                </button>
-                                <button class="option-button yellow" onclick="handleResult('RIM - Relazioni Internazionali e Marketing')">
-                                    <span>y)</span> Il tedesco
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'studio_economia':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Ti interessa di più occuparti di impresa...</h2>
-                            <div class="options">
-                                <button class="option-button indigo" onclick="handleResult('AFM - Amministrazione Finanza e Marketing')">
-                                    <span>x)</span> In Italia
-                                </button>
-                                <button class="option-button cyan" onclick="handleResult('RIM - Relazioni Internazionali e Marketing')">
-                                    <span>y)</span> All'Estero
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'studio_sanitario':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Preferisci occuparti...</h2>
-                            <div class="options">
-                                <button class="option-button red" onclick="handleResult('Socio Sanitario')">
-                                    <span>x)</span> Del benessere psicofisico della persona (ambito socio sanitario)
-                                </button>
-                                <button class="option-button blue" onclick="handleResult('Ottico')">
-                                    <span>y)</span> Dei problemi della vista (oculistica)
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'lavoro':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Preferisci occuparti di...</h2>
-                            <div class="options">
-                                <button class="option-button blue" onclick="handleChoice('lavoro_economia', 'a')">
-                                    <span>a)</span> Economia e marketing
-                                </button>
-                                <button class="option-button green" onclick="handleChoice('lavoro_lingue', 'b')">
-                                    <span>b)</span> Lingue straniere
-                                </button>
-                                <button class="option-button rose" onclick="handleChoice('lavoro_sanitarie', 'c')">
-                                    <span>c)</span> Professioni sanitarie
-                                </button>
-                                <button class="option-button slate" onclick="handleResult('CAT - Costruzione Ambiente e Territorio')">
-                                    <span>d)</span> Disegno tecnico
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'lavoro_economia':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Preferisci occuparti di...</h2>
-                            <div class="options">
-                                <button class="option-button violet" onclick="handleResult('AFM - Amministrazione Finanza e Marketing')">
-                                    <span>x)</span> Diritto ed economia in ambito nazionale
-                                </button>
-                                <button class="option-button fuchsia" onclick="handleResult('RIM - Relazioni Internazionali e Marketing')">
-                                    <span>y)</span> Diritto ed economia in ambito internazionale
-                                </button>
-                                <button class="option-button lime" onclick="handleResult('Web Community Manager')">
-                                    <span>z)</span> Diritto ed economia in ambito informatico web
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'lavoro_lingue':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Ti incuriosisce di più studiare...</h2>
-                            <div class="options">
-                                <button class="option-button emerald" onclick="handleResult('Turistico')">
-                                    <span>x)</span> Russo
-                                </button>
-                                <button class="option-button sky" onclick="handleResult('RIM - Relazioni Internazionali e Marketing')">
-                                    <span>y)</span> Tedesco
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'lavoro_sanitarie':
-                    content.innerHTML = `
-                        <div class="question-container">
-                            <h2>Preferisci occuparti...</h2>
-                            <div class="options">
-                                <button class="option-button red" onclick="handleResult('Socio Sanitario')">
-                                    <span>x)</span> Del benessere psicofisico della persona
-                                </button>
-                                <button class="option-button blue" onclick="handleResult('Ottico')">
-                                    <span>y)</span> Dei problemi della vista
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-
-                case 'result':
-                    const pdfButtonHTML = pdfLink ? `
-                        <a href="${pdfLink}" target="_blank" class="pdf-button">
-                            📄 Scarica la brochure informativa (PDF)
-                        </a>
-                    ` : '';
-                    
-                    content.innerHTML = `
-                        <div class="result-container">
-                            <div class="result-icon">🎓</div>
-                            <h2 class="result-title">Il tuo percorso ideale!</h2>
-                            <div class="result-box">
-                                <p class="result-text">${result}</p>
-                            </div>
-                            ${pdfButtonHTML}
-                            <button class="restart-button" onclick="restart()">
-                                🔄 Ricomincia il quiz
-                            </button>
-                        </div>
-                    `;
-                    backButton.classList.add('hidden');
-                    break;
+            // Solo nel risultato: se la parte alta e' finita sopra la zona visibile, la riporta in vista
+            if (isResult) {
+                const top = content.getBoundingClientRect().top;
+                if (top < 0) {
+                    window.scrollBy({ top: top - 12, left: 0, behavior: "instant" });
+                }
+                burst();
             }
         }
 
-        function handleChoice(nextStep, choice) {
-            history.push({ step: currentStep, choice: choice });
-            currentStep = nextStep;
-            renderStep();
-        }
-
-        function handleResult(school) {
-            result = school;
-            pdfLink = PDF_LINKS[school] || null;
-            currentStep = 'result';
-            renderStep();
+        function choose(opt) {
+            history.push({ step: currentStep, label: opt.text });
+            if (opt.result) {
+                resultKey = opt.result;
+                currentStep = "result";
+            } else {
+                currentStep = opt.next;
+            }
+            render(true);
         }
 
         function goBack() {
-            if (history.length > 0) {
-                const lastStep = history.pop();
-                currentStep = lastStep.step;
-                result = null;
-                renderStep();
-            }
+            if (history.length === 0) return;
+            currentStep = history.pop().step;
+            resultKey = null;
+            render(true);
         }
 
         function restart() {
-            currentStep = 'start';
+            currentStep = "start";
             history = [];
-            result = null;
-            pdfLink = null;
-            renderStep();
+            resultKey = null;
+            render(true);
         }
 
-        // Inizializza il quiz
-        renderStep();
+        backButton.addEventListener("click", goBack);
+        render(false);
     </script>
 </body>
 </html>
