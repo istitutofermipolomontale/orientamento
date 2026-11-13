@@ -111,18 +111,6 @@ header h1 span{color:var(--accent)}
 .flyers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .flyers .opt{flex-direction:column;align-items:stretch}
 .flyer{height:180px;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
-.match{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
-.mtitle{font-weight:800;font-size:18px;display:flex;justify-content:space-between;margin-bottom:10px}
-.mtitle span{background:#e0e7ff;color:var(--accent);padding:2px 10px;border-radius:999px}
-.mcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.mcol{display:flex;flex-direction:column;gap:8px}
-.mhead{font-weight:800;text-align:center;color:var(--muted)}
-.mcard{font:inherit;font-size:clamp(15px,1.9vw,18px);border:3px solid #d6daf0;background:#f8f9ff;border-radius:12px;padding:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .12s,border-color .12s}
-.mcard small{color:var(--muted);font-size:12px}
-.mcard:hover:not(:disabled){transform:translateY(-2px);border-color:var(--accent)}
-.mcard.sel{border-color:var(--accent2);background:#fef3c7;transform:scale(1.04)}
-.mcard.ok{border-color:var(--ok);background:#dcfce7;cursor:default}
-.mcard.bad{border-color:var(--ko);background:#fee2e2;animation:wob .4s}
 @keyframes wob{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .banner{padding:10px 14px;border-radius:12px;font-weight:800;font-size:18px}
 .banner.ok{background:#dcfce7;color:#14532d}.banner.ko{background:#fee2e2;color:#7f1d1d}
@@ -166,14 +154,6 @@ header h1 span{color:var(--accent)}
 .pzhelp{text-align:center;color:var(--muted)}
 .pzthumb{width:110px;height:110px;background-size:cover;border-radius:10px;box-shadow:var(--shadow);margin-bottom:4px}
 /* acchiappa la merenda */
-.arena{position:relative;height:280px;border-radius:14px;overflow:hidden;background:linear-gradient(#bae6fd,#e0f2fe 70%,#a8a29e 70%);touch-action:none;cursor:crosshair}
-.catcher{position:absolute;bottom:4px;width:52px;height:104px;transform:translateX(-50%)}
-.catcher.hit{animation:wob .4s}
-.fall{position:absolute;font-size:34px;transform:translate(-50%,-50%);pointer-events:none}
-.popt{position:absolute;top:58%;font-weight:900;font-size:22px;transform:translateX(-50%);animation:up .7s forwards;pointer-events:none}
-@keyframes up{to{top:40%;opacity:0}}
-.arena-start{position:absolute;inset:0;display:grid;place-items:center;background:rgba(15,12,50,.25)}
-.gbox .moves{margin-top:10px}
 /* bagno */
 .bathroom{position:relative;height:300px;border-radius:14px;overflow:hidden;
   background:linear-gradient(transparent 75%,#94a3b8 75%),linear-gradient(90deg,rgba(255,255,255,.75) 2px,transparent 2px) 0 0/32px 32px,linear-gradient(rgba(255,255,255,.75) 2px,transparent 2px) 0 0/32px 32px,#bae6fd}
@@ -183,7 +163,6 @@ header h1 span{color:var(--accent)}
 .sink{position:relative;font-size:40px;background:#f8fafc;border-radius:8px 8px 30px 30px;padding:4px 14px;box-shadow:0 4px 0 #cbd5e1}
 .drops{position:absolute;left:50%;top:70%;font-size:18px;animation:drip .6s infinite}
 @keyframes drip{from{transform:translateY(0);opacity:1}to{transform:translateY(26px);opacity:0}}
-.graffiti{font-family:"Comic Sans MS",cursive;font-weight:900;color:#dc2626;font-size:22px;transform:rotate(-8deg);display:inline-block}
 /* smista le carte */
 .scard{background:#f8f9ff;border:3px solid #d6daf0;border-radius:14px;padding:16px;font-size:clamp(15px,2vw,19px);line-height:1.45;min-height:90px;margin-bottom:12px}
 .scard.in{animation:pop .3s}
@@ -192,12 +171,6 @@ header h1 span{color:var(--accent)}
 .sbin .big{font-size:36px}
 .sbin .k{display:none}
 /* acchiappa il mouse */
-.holes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:420px;margin:0 auto}
-.hole{position:relative;height:96px;background:#1e293b;border-radius:14px;overflow:hidden;display:grid;place-items:center}
-.hole .pc{font-size:44px;opacity:.55}
-.hole .pop{position:absolute;left:50%;bottom:-70px;transform:translateX(-50%);font-size:46px;background:none;border:none;cursor:pointer;transition:bottom .12s}
-.hole.up .pop{bottom:16px}
-.holes.bad{animation:wob .4s}
 /* crea la pubblicità */
 .adwrap{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
 .adgrp{margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -207,7 +180,7 @@ header h1 span{color:var(--accent)}
 .adprev{height:250px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;box-shadow:var(--shadow);transition:background .3s;border:1px solid #e2e8f0}
 @media (max-width:640px){ .adwrap{grid-template-columns:1fr} .hole{height:76px} .sbins{grid-template-columns:1fr} }
 
-/* ===== GIOCHI v3 ===== */
+/* ===== GIOCHI ===== */
 .banner.info{background:#eef2ff;color:var(--ink);font-weight:600}
 /* wordle */
 .wd{display:flex;flex-direction:column;gap:6px;align-items:center}
@@ -237,33 +210,10 @@ header h1 span{color:var(--accent)}
 .wheel button{background:none;border:none;color:#facc15;font-size:18px;cursor:pointer;padding:2px 10px}
 .dig{font-size:30px;font-weight:900;font-family:monospace;background:#f8fafc;color:#111;border-radius:6px;width:40px;text-align:center}
 /* password */
-.pwin{font:inherit;font-size:22px;width:100%;padding:12px 14px;border:3px solid #d6daf0;border-radius:12px;font-family:monospace}
-.pwin:focus{outline:none;border-color:var(--accent)}
-.pwbar{height:14px;background:#e2e8f0;border-radius:999px;margin:10px 0 6px;overflow:hidden}
-.pwbar div{height:100%;width:0;transition:width .3s,background .3s}
-.pwtime{font-size:16px;margin-bottom:6px}
 .pwchk{list-style:none;padding:0;margin:6px 0;display:grid;gap:3px;font-size:15px;color:var(--muted)}
 .pwchk li.y{color:#14532d;font-weight:700}
 /* minecraft */
-.mcwrap{display:grid;grid-template-columns:1fr 250px;gap:14px;align-items:start}
-.mcgrid{display:grid;grid-template-columns:repeat(14,1fr);border-radius:10px;overflow:hidden;touch-action:none;user-select:none;
   background:linear-gradient(#7dd3fc,#bae6fd);border:3px solid #1e293b;position:relative}
-.mc-cell{aspect-ratio:1;cursor:crosshair;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);image-rendering:pixelated}
-.mc-cell:hover{box-shadow:inset 0 0 0 2px #fff}
-.mc-grass{background:linear-gradient(#4ade80 0 28%,#15803d 28% 36%,#92400e 36%);cursor:default}
-.mc-brick{background-color:#b45309;background-image:linear-gradient(#e7d3c1 2px,transparent 2px),linear-gradient(90deg,#e7d3c1 2px,transparent 2px),linear-gradient(90deg,transparent 50%,#e7d3c1 50%,#e7d3c1 calc(50% + 2px),transparent calc(50% + 2px));background-size:100% 50%,50% 50%,100% 100%;background-position:0 0,25% 0,0 50%}
-.mc-wood{background:repeating-linear-gradient(90deg,#a16207 0 4px,#ca8a04 4px 9px,#854d0e 9px 11px)}
-.mc-glass{background:linear-gradient(135deg,rgba(255,255,255,.75) 0 18%,rgba(186,230,253,.85) 18% 60%,rgba(255,255,255,.5) 60% 66%,rgba(186,230,253,.85) 66%);box-shadow:inset 0 0 0 3px #e0f2fe}
-.mc-door{background:radial-gradient(circle at 78% 55%,#facc15 0 7%,transparent 8%),repeating-linear-gradient(#7c2d12 0 5px,#9a3412 5px 10px)}
-.mc-roof{background:repeating-linear-gradient(#991b1b 0 4px,#dc2626 4px 9px)}
-.mc-solar{background-color:#1e3a8a;background-image:linear-gradient(#93c5fd 2px,transparent 2px),linear-gradient(90deg,#93c5fd 2px,transparent 2px);background-size:50% 50%}
-.mc-sign{background:#facc15;box-shadow:inset 0 0 0 3px #a16207;position:relative}
-.mc-sign::after{content:"SHOP";position:absolute;inset:0;display:grid;place-items:center;font-size:9px;font-weight:900;color:#7c2d12}
-.mcbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;background:#334155;padding:6px;border-radius:10px}
-.mcslot{display:flex;align-items:center;gap:6px;background:#475569;border:3px solid #475569;border-radius:8px;color:#fff;padding:4px 8px;cursor:pointer;font:inherit;font-size:12px;text-align:left;line-height:1.2}
-.mcslot.on{border-color:#facc15;background:#1e293b}
-.mcico{display:inline-block;width:28px;height:28px;border-radius:4px;font-size:22px;line-height:28px;text-align:center}
-.mcside{background:#f8f9ff;border-radius:12px;padding:10px}
 .mcrep{margin-top:12px;background:#f0fdf4;border:2px solid #16a34a;border-radius:12px;padding:12px;font-size:15px}
 .mcrep table{width:100%;border-collapse:collapse;margin:8px 0}
 .mcrep td{padding:4px 6px;border-bottom:1px solid #dcfce7}
@@ -329,18 +279,12 @@ header h1 span{background:linear-gradient(90deg,#22d3ee,#f472b6);-webkit-backgro
 .wtile.on{background:linear-gradient(135deg,#6366f1,#db2777)}
 @media (max-width:760px){ .cpwrap{grid-template-columns:1fr} .xpwrap{min-width:120px} }
 
-/* ===== v5: logo e classifica ===== */
 .hlogo{height:42px;vertical-align:middle;background:#fff;border-radius:12px;padding:3px 5px;margin-right:4px}
 .slogo{height:150px;display:block;margin:0 auto 4px}
 .clogo{height:120px}
 .walllogo{position:absolute;left:50%;top:25%;height:50%;transform:translateX(-50%);background:rgba(255,255,255,.9);border-radius:20px;padding:10px 16px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:1}
 .btn.alt{background:#334155;box-shadow:0 5px 0 #1e293b}
 .lbbtns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
-.lbwrap{max-height:340px;overflow:auto;border-radius:12px}
-.lb{width:100%;border-collapse:collapse;font-size:14px;text-align:left}
-.lb th{position:sticky;top:0;background:#4c1d95;padding:7px 8px}
-.lb td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.12)}
-.lb tr:nth-child(2) td{background:rgba(250,204,21,.15)}
 
 /* ===== v6: cantiere 3D e HTML Lab ===== */
 .c3wrap{display:grid;grid-template-columns:1fr 290px;gap:14px;align-items:start}
@@ -434,6 +378,11 @@ pre#hlcode .newl{background:rgba(250,204,21,.25);animation:pop .4s}
 .tagmenu button{font:inherit;font-size:14px;text-align:left;border:none;background:#f8f9ff;border-radius:8px;padding:7px 10px;cursor:pointer}
 .tagmenu button:hover{background:#e0e7ff}
 .tagmenu button span{font-family:Consolas,Menlo,monospace;font-weight:900;color:#4f46e5;display:inline-block;min-width:44px}
+
+.finalscore{display:flex;justify-content:center;gap:10px;margin:8px 0}
+.finalscore div{background:linear-gradient(135deg,#4f46e5,#db2777);color:#fff;border-radius:14px;padding:8px 14px;min-width:96px}
+.finalscore b{display:block;font-size:28px;line-height:1.1}
+.finalscore small{font-size:12px;opacity:.9}
 </style>
 </head>
 <body>
@@ -563,8 +512,6 @@ const FLY_C = `<div class="flyer" style="background:#fff;color:#fef9c3;border:1p
 /* ================= NUOVI PERSONAGGI ================= */
 P.pin = {n:'Signora Pina', r:'Collaboratrice scolastica', c:'#0284c7',
   look:{skin:'#efc49e',hair:'curly',hairColor:'#8a8a8a',top:'#38bdf8',shirt:'#fff',bottom:'#1e3a8a',shoes:'#f8fafc'}};
-P.mar = {n:'Prof. Marchi', r:'Tecniche Professionali', c:'#4d7c0f',
-  look:{skin:'#e0ac82',hair:'short',hairColor:'#3f2a1a',beard:'#3f2a1a',top:'#4d7c0f',shirt:'#fff',bottom:'#1e293b',shoes:'#78350f'}};
 P.giu = {n:'Giulia', r:'Studentessa della 1ª Q', c:'#16a34a',
   look:{skin:'#f6d3b8',hair:'long',hairColor:'#7c4a1e',top:'#22c55e',bottom:'#1e3a8a',shoes:'#f8fafc',backpack:'#f59e0b'}};
 
@@ -1135,153 +1082,6 @@ GAMES.puzzle = (st,next)=>{
   draw();
 };
 
-/* ---------- 🔤 ABBINA LE PAROLE ---------- */
-GAMES.match = (st,next)=>{
-  say(st.sp,st.intro);
-  const panel=$('panel'); panel.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='gbox';
-  wrap.innerHTML=`<div class="gtitle">🎮 ${st.title} <span id="mcount">0 / ${st.pairs.length}</span></div>
-    <div class="mcols"><div class="mcol" id="colFr"><div class="mhead">${st.heads?st.heads[0]:'🇫🇷 Francese'}</div></div>
-    <div class="mcol" id="colEn"><div class="mhead">${st.heads?st.heads[1]:'🇬🇧 Inglese'}</div></div></div>`;
-  panel.appendChild(wrap);
-  const ban=banner(panel);
-  let sel=null, done=0, errors=0;
-  shuffle(st.pairs.map((p,i)=>i)).forEach(i=>{
-    const b=document.createElement('button'); b.className='mcard'; b.dataset.i=i;
-    b.innerHTML=`<b>${st.pairs[i][0]}</b>${st.pairs[i][2]?`<small>(${st.pairs[i][2]})</small>`:''}`;
-    b.onclick=()=>{ if(b.disabled) return; finishTyping();
-      wrap.querySelectorAll('#colFr .mcard').forEach(x=>x.classList.remove('sel'));
-      sel=b; b.classList.add('sel'); blip(600); };
-    wrap.querySelector('#colFr').appendChild(b);
-  });
-  shuffle(st.pairs.map((p,i)=>i)).forEach(i=>{
-    const b=document.createElement('button'); b.className='mcard'; b.dataset.i=i;
-    b.innerHTML=`<b>${st.pairs[i][1]}</b>`;
-    b.onclick=()=>{
-      if(b.disabled) return; finishTyping();
-      if(!sel){ ban('ko','👆 Prima clicca una carta nella colonna a sinistra!'); return; }
-      if(sel.dataset.i===b.dataset.i){
-        [sel,b].forEach(x=>{x.classList.remove('sel');x.classList.add('ok');x.disabled=true;});
-        sel=null; done++; blip(900);
-        wrap.querySelector('#mcount').textContent=`${done} / ${st.pairs.length}`;
-        ban('ok',`✅ «${st.pairs[b.dataset.i][0]}» = «${st.pairs[b.dataset.i][1]}»`);
-        if(done===st.pairs.length){
-          gameDone(st,Math.max(4,10-errors*2), st.win ? st.win : errors===0?'Incroyable! Tutte giuste al primo colpo!':'Bravo! Inglese e francese, con un po\' di furbizia, si capiscono!', next);
-          npcEl('ros')&&anim(npcEl('ros'),'jump');
-        }
-      } else {
-        errors++; beep(false);
-        b.classList.add('bad'); setTimeout(()=>b.classList.remove('bad'),500);
-        anim(npcEl(st.sp),'shake');
-        ban('ko','❌ Non è la coppia giusta… riprova!');
-      }
-    };
-    wrap.querySelector('#colEn').appendChild(b);
-  });
-};
-
-/* ---------- 🥪 ACCHIAPPA LA MERENDA (intervallo) ---------- */
-GAMES.catch = (st,next)=>{
-  say(st.sp,st.intro);
-  const panel=$('panel'); panel.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='gbox';
-  wrap.innerHTML=`<div class="gtitle">🥪 Acchiappa la merenda <span id="ctInfo">⏱️ 30 • 🥪 0</span></div>
-    <div class="arena" id="arena"><div class="catcher" id="catcher">${charSVG(STUDENTS[S.look])}</div>
-    <div class="arena-start" id="ctStart"><button class="btn">▶ Via!</button></div></div>
-    <div class="moves"><button class="btn" data-k="left">◀</button><span>Muoviti con ◀ ▶<br>o col dito/mouse</span><button class="btn" data-k="right">▶</button></div>`;
-  panel.appendChild(wrap);
-  bindHold(wrap);
-  const arena=wrap.querySelector('#arena'), catcher=wrap.querySelector('#catcher');
-  const GOOD=['🍕','🍎','🥪','🍌','🧃','🥨'], BAD=['⚽','🏀'];
-  let x=50, items=[], caught=0, time=30, spawnT=0, raf=null, last=0, running=false, pointerX=null, ended=false;
-  arena.addEventListener('pointermove',e=>{ const r=arena.getBoundingClientRect(); pointerX=(e.clientX-r.left)/r.width*100; });
-  arena.addEventListener('pointerdown',e=>{ const r=arena.getBoundingClientRect(); pointerX=(e.clientX-r.left)/r.width*100; });
-  function info(){ wrap.querySelector('#ctInfo').textContent=`⏱️ ${Math.ceil(time)} • 🥪 ${caught}`; }
-  function frame(t){
-    const dt=Math.min(50,t-(last||t)); last=t;
-    time-=dt/1000;
-    if(G.keys.left){ x-=dt*0.07; pointerX=null; } else if(G.keys.right){ x+=dt*0.07; pointerX=null; }
-    else if(pointerX!=null){ const d=pointerX-x; x+=Math.sign(d)*Math.min(Math.abs(d),dt*0.09); }
-    x=Math.max(5,Math.min(95,x));
-    catcher.style.left=x+'%';
-    spawnT-=dt;
-    if(spawnT<=0){
-      spawnT=520+Math.random()*350;
-      const bad=Math.random()<0.27;
-      const el=document.createElement('div'); el.className='fall';
-      el.textContent= bad ? BAD[Math.floor(Math.random()*BAD.length)] : GOOD[Math.floor(Math.random()*GOOD.length)];
-      const it={x:5+Math.random()*90, y:-8, v:0.028+Math.random()*0.02+(30-time)*0.0006, bad, el};
-      el.style.left=it.x+'%'; arena.appendChild(el); items.push(it);
-    }
-    items=items.filter(it=>{
-      it.y+=it.v*dt; it.el.style.top=it.y+'%';
-      if(it.y>70 && it.y<92 && Math.abs(it.x-x)<8){
-        it.el.remove();
-        if(it.bad){ caught=Math.max(0,caught-2); beep(false); anim(catcher,'hit',400); pop(it.x,'−2','#dc2626'); }
-        else { caught++; blip(880); pop(it.x,'+1','#16a34a'); }
-        info(); return false;
-      }
-      if(it.y>105){ it.el.remove(); return false; }
-      return true;
-    });
-    info();
-    if(time<=0) return finish();
-    raf=requestAnimationFrame(frame);
-  }
-  function pop(px,txt,col){ const p=document.createElement('div'); p.className='popt'; p.style.left=px+'%'; p.style.color=col; p.textContent=txt; arena.appendChild(p); setTimeout(()=>p.remove(),700); }
-  function finish(){
-    if(ended) return; ended=true; running=false; cancelAnimationFrame(raf);
-    const pts=Math.max(3,Math.min(10,Math.round(caught/1.6)));
-    gameDone(st,pts, caught>=14?`Wow, ${caught} merende! Sei il campione dell'intervallo! 🏆`:`Hai preso ${caught} merende. Ottimo intervallo! Domani si rigioca 😄`, next);
-  }
-  gameStop=()=>{ ended=true; cancelAnimationFrame(raf); };
-  wrap.querySelector('#ctStart button').onclick=()=>{ finishTyping(); wrap.querySelector('#ctStart').remove(); running=true; last=0; raf=requestAnimationFrame(frame); };
-};
-
-/* ---------- 🚻 IL BAGNO PULITO (trova i pasticci) ---------- */
-GAMES.bagno = (st,next)=>{
-  say(st.sp,st.intro);
-  const panel=$('panel'); panel.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='gbox';
-  const SPOTS=[
-    {id:'tap', bad:true, x:16, y:38, html:'<div class="sink">🚰<div class="drops">💧</div></div>', fixed:'<div class="sink">🚰</div>', msg:'Rubinetto chiuso! L\'acqua è preziosa: non si spreca. 💧'},
-    {id:'paper', bad:true, x:44, y:80, html:'<span style="font-size:42px">🧻</span>', fixed:'<span style="font-size:34px">✨</span>', msg:'Carta raccolta e buttata nel cestino. Grazie!'},
-    {id:'scritta', bad:true, x:52, y:16, html:'<span class="graffiti">W LA 3B!!!</span>', fixed:'<span style="font-size:30px">✨</span>', msg:'Scritta cancellata! I muri della scuola sono di tutti.'},
-    {id:'phone', bad:true, x:28, y:44, html:'<span style="font-size:32px">📱</span>', fixed:'<span style="font-size:28px">📦</span>', msg:'Telefono dimenticato! Lo portiamo in segreteria, così il proprietario lo ritrova.'},
-    {id:'bottle', bad:true, x:76, y:82, html:'<span style="font-size:40px">🥤</span>', fixed:'<span style="font-size:32px">♻️</span>', msg:'Bottiglietta nella raccolta differenziata! ♻️'},
-    {id:'mirror', x:16, y:6, html:'<span style="font-size:52px">🪞</span>', msg:'Lo specchio è pulito: questo è a posto!'},
-    {id:'soap', x:30, y:30, html:'<span style="font-size:30px">🧼</span>', msg:'Il sapone è al suo posto: lavarsi le mani è importante!'},
-    {id:'bin', x:62, y:72, html:'<span style="font-size:44px">🗑️</span>', msg:'Il cestino è a posto: è lì che va la carta!'},
-    {id:'door', x:86, y:30, html:'<span style="font-size:80px">🚪</span>', msg:'La porta è chiusa bene: tutto ok!'}
-  ];
-  wrap.innerHTML=`<div class="gtitle">🚻 Il bagno pulito <span id="bgInfo">⏱️ 40 • Trovati 0 / 5</span></div>
-    <div class="bathroom" id="bath"></div>`;
-  panel.appendChild(wrap);
-  const ban=banner(panel);
-  const bath=wrap.querySelector('#bath');
-  let found=0, wrong=0, time=40, ended=false;
-  SPOTS.forEach(s=>{
-    const b=document.createElement('button'); b.className='spot'; b.style.left=s.x+'%'; b.style.top=s.y+'%';
-    b.innerHTML=s.html;
-    b.onclick=()=>{
-      if(ended||b.disabled) return; finishTyping();
-      if(s.bad){ b.disabled=true; b.innerHTML=s.fixed; b.classList.add('fixed'); found++; blip(900); ban('ok','✅ '+s.msg); cheer(st.sp);
-        if(found===5) finish(); }
-      else { wrong++; ban('ko','🙂 '+s.msg+' Cerca ancora!'); anim(b,'bad',500); }
-      upd();
-    };
-    bath.appendChild(b);
-  });
-  function upd(){ wrap.querySelector('#bgInfo').textContent=`⏱️ ${Math.max(0,Math.ceil(time))} • Trovati ${found} / 5`; }
-  const iv=setInterval(()=>{ time-=1; upd(); if(time<=0) finish(); },1000);
-  gameStop=()=>{ clearInterval(iv); ended=true; };
-  function finish(){
-    if(ended) return; ended=true; clearInterval(iv);
-    const pts=found*2;
-    gameDone(st,pts, found===5?'Grazie mille! Il bagno è di nuovo splendido. Chi rispetta gli spazi comuni rispetta le persone. ✨':`Hai trovato ${found} pasticci su 5. Grazie dell'aiuto: ogni gesto conta!`, next);
-  }
-};
-
 /* ---------- 📂 SMISTA LE CARTE (email truffa, green, privacy) ---------- */
 GAMES.sort = (st,next)=>{
   say(st.sp,st.intro);
@@ -1322,53 +1122,6 @@ GAMES.sort = (st,next)=>{
     panel.appendChild(nb);
   }
   show();
-};
-
-/* ---------- 🖱️ ACCHIAPPA IL MOUSE ---------- */
-GAMES.whack = (st,next)=>{
-  say(st.sp,st.intro);
-  const panel=$('panel'); panel.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='gbox';
-  wrap.innerHTML=`<div class="gtitle">🖱️ Acchiappa il mouse <span id="wkInfo">⏱️ 25 • 🖱️ 0</span></div>
-    <div class="holes" id="holes"></div>
-    <div class="arena-start" id="wkStart" style="position:relative;inset:auto;margin-top:8px;background:none"><button class="btn">▶ Via!</button></div>`;
-  panel.appendChild(wrap);
-  const holes=wrap.querySelector('#holes');
-  const H=[...Array(9)].map(()=>{ const h=document.createElement('div'); h.className='hole'; h.innerHTML='<div class="pc">🖥️</div><button class="pop"></button>'; holes.appendChild(h); return h; });
-  let score=0, time=25, ended=false, iv=null, tick=null;
-  function info(){ wrap.querySelector('#wkInfo').textContent=`⏱️ ${Math.max(0,Math.ceil(time))} • 🖱️ ${score}`; }
-  H.forEach(h=>{
-    const p=h.querySelector('.pop');
-    p.onclick=()=>{
-      if(!h.classList.contains('up')||ended) return;
-      h.classList.remove('up');
-      if(p.dataset.v==='virus'){ score=Math.max(0,score-2); beep(false); anim(holes,'bad',400); }
-      else { score++; blip(950); }
-      info();
-    };
-  });
-  function spawn(){
-    const free=H.filter(h=>!h.classList.contains('up'));
-    if(!free.length) return;
-    const h=free[Math.floor(Math.random()*free.length)], p=h.querySelector('.pop');
-    const virus=Math.random()<0.25;
-    p.dataset.v=virus?'virus':'mouse'; p.textContent=virus?'🦠':'🖱️';
-    h.classList.add('up');
-    const stay=Math.max(550,1050-(25-time)*18);
-    setTimeout(()=>h.classList.remove('up'),stay);
-  }
-  function finish(){
-    if(ended) return; ended=true; clearInterval(iv); clearInterval(tick);
-    H.forEach(h=>h.classList.remove('up'));
-    const pts=Math.max(3,Math.min(10,Math.round(score/1.4)));
-    gameDone(st,pts, score>=12?`${score} mouse catturati! Riflessi da vero smanettone! ⚡`:`Hai catturato ${score} mouse. Bel lavoro, e niente virus nel laboratorio!`, next);
-  }
-  gameStop=()=>{ ended=true; clearInterval(iv); clearInterval(tick); };
-  wrap.querySelector('#wkStart button').onclick=()=>{
-    finishTyping(); wrap.querySelector('#wkStart').remove();
-    iv=setInterval(spawn,620);
-    tick=setInterval(()=>{ time-=0.1; info(); if(time<=0) finish(); },100);
-  };
 };
 
 /* ---------- 🎨 CREA LA PUBBLICITÀ ---------- */
@@ -1565,155 +1318,6 @@ GAMES.escape = (st,next)=>{
   };
 };
 
-/* ---------- 🛡️ LABORATORIO ANTI-HACKER (password) ---------- */
-GAMES.password = (st,next)=>{
-  say(st.sp,st.intro);
-  const panel=$('panel'); panel.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='gbox';
-  wrap.innerHTML=`<div class="gtitle">🛡️ Laboratorio anti-hacker</div>
-    <input class="pwin" id="pw" type="text" placeholder="Scrivi qui una password inventata…" autocomplete="off" spellcheck="false">
-    <div class="pwbar"><div id="pwfill"></div></div>
-    <div class="pwtime">⏱️ Un computer potente la indovinerebbe in: <b id="pwt">—</b></div>
-    <ul class="pwchk" id="pwchk"></ul>
-    <div class="hint">💡 Trucco: usa una frase che ricordi solo tu, con simboli e numeri, per esempio «IlMio_Gatto-Mangia3Pizze!»</div>
-    <button class="btn" id="pwok" style="margin-top:10px" disabled>✅ Conferma la password</button>`;
-  panel.appendChild(wrap);
-  const inp=wrap.querySelector('#pw'), ok=wrap.querySelector('#pwok');
-  const COMMON=['password','123','qwerty','ciao','admin','abc','000','111','juve','inter','milan'];
-  function fmt(s){
-    const r=n=>Math.round(n).toLocaleString('it-IT');
-    if(s<1) return 'meno di un secondo ⚡';
-    if(s<60) return r(s)+' secondi';
-    if(s<3600) return r(s/60)+' minuti';
-    if(s<86400) return r(s/3600)+' ore';
-    if(s<31536000) return r(s/86400)+' giorni';
-    const y=s/31536000;
-    if(y<1e6) return r(y)+' anni';
-    if(y<1e9) return r(y/1e6)+' milioni di anni';
-    if(y<1e12) return r(y/1e9)+' miliardi di anni';
-    return 'più di mille miliardi di anni 🌌';
-  }
-  function check(){
-    const p=inp.value, low=p.toLowerCase();
-    const nm=S.name.toLowerCase();
-    const common=COMMON.some(c=>low.includes(c)) || (nm.length>=3 && low.includes(nm));
-    const R=[
-      [p.length>=12,'Almeno 12 caratteri ('+p.length+')'],
-      [/[A-Z]/.test(p),'Una lettera maiuscola'],
-      [/[a-z]/.test(p),'Una lettera minuscola'],
-      [/\d/.test(p),'Un numero'],
-      [/[^A-Za-z0-9]/.test(p),'Un simbolo (! _ - ? # …)'],
-      [p.length>0&&!common,'Nessuna parola facile (password, 123, ciao, il tuo nome…)']
-    ];
-    let pool=(/[a-z]/.test(p)?26:0)+(/[A-Z]/.test(p)?26:0)+(/\d/.test(p)?10:0)+(/[^A-Za-z0-9]/.test(p)?33:0);
-    let sec = p.length? Math.pow(pool||1,p.length)/2/1e10 : 0;
-    if(common) sec=Math.min(sec,0.5);
-    wrap.querySelector('#pwt').textContent = p.length? fmt(sec) : '—';
-    const lv=Math.min(1,Math.log10(sec+1)/12);
-    const fill=wrap.querySelector('#pwfill'); fill.style.width=(lv*100)+'%';
-    fill.style.background= lv<.35?'#dc2626':lv<.7?'#f59e0b':'#16a34a';
-    wrap.querySelector('#pwchk').innerHTML=R.map(([o,t])=>`<li class="${o?'y':''}">${o?'✅':'⬜'} ${t}</li>`).join('');
-    const good=R.every(r=>r[0]) && sec>=100*31536000;
-    ok.disabled=!good;
-  }
-  inp.addEventListener('input',check); check();
-  setTimeout(()=>inp.focus(),100);
-  ok.onclick=()=>{ inp.disabled=true; ok.disabled=true;
-    gameDone(st,10,`Ottima password: ci vorrebbero <b>${wrap.querySelector('#pwt').textContent}</b> per indovinarla! Ricorda: una password diversa per ogni account, e non dirla a nessuno.`,next); };
-};
-
-/* ---------- ⛏️ COSTRUISCI IL NEGOZIO (stile Minecraft) ---------- */
-GAMES.craft = (st,next)=>{
-  say(st.sp,st.intro);
-  const COLS=14, ROWS=9, BUDGET=1000;
-  const B={
-    brick:{n:'Mattone',p:20}, wood:{n:'Legno',p:15}, glass:{n:'Vetro',p:30}, door:{n:'Porta',p:50},
-    roof:{n:'Tegola',p:25}, solar:{n:'Pannello solare',p:60}, sign:{n:'Insegna',p:80}
-  };
-  const REQ=[
-    ['Muri: almeno 12 blocchi di mattone o legno', c=>c.brick+c.wood>=12],
-    ['Una porta d\'ingresso', c=>c.door>=1],
-    ['Vetrine: almeno 2 blocchi di vetro', c=>c.glass>=2],
-    ['Tetto: almeno 5 tegole', c=>c.roof>=5],
-    ['Un\'insegna (marketing!)', c=>c.sign>=1],
-    ['Un pannello solare (green!)', c=>c.solar>=1],
-    ['Spesa entro il budget di 1.000 €', (c,sp)=>sp<=BUDGET]
-  ];
-  const grid=[...Array(ROWS)].map((_,r)=>[...Array(COLS)].map(()=> r===ROWS-1?'grass':null));
-  let tool='brick', painting=false, opened=false;
-  const panel=$('panel'); panel.innerHTML='';
-  const wrap=document.createElement('div'); wrap.className='gbox';
-  wrap.innerHTML=`<div class="gtitle">⛏️ Costruisci il tuo negozio <span id="mcBud">Spesa: 0 € / 1.000 €</span></div>
-    <div class="mcwrap"><div><div class="mcgrid" id="mcg"></div>
-      <div class="mcbar" id="mcbar"></div></div>
-      <div class="mcside"><b>📋 Requisiti</b><ul class="pwchk" id="mcreq"></ul>
-      <button class="btn" id="mcopen" disabled style="width:100%">🏪 Apri il negozio!</button>
-      <button class="adopt" id="mcclear" style="width:100%;margin-top:8px">🗑️ Ricomincia la costruzione</button></div></div>`;
-  panel.appendChild(wrap);
-  const ban=banner(panel);
-  const g=wrap.querySelector('#mcg'), bar=wrap.querySelector('#mcbar');
-  const cellEls=[];
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const d=document.createElement('div'); d.className='mc-cell'; d.dataset.r=r; d.dataset.c=c;
-    d.addEventListener('pointerdown',e=>{ e.preventDefault(); painting=true; act(r,c,true); });
-    d.addEventListener('pointerenter',()=>{ if(painting) act(r,c,false); });
-    g.appendChild(d); cellEls.push(d);
-  }
-  document.addEventListener('pointerup',()=>painting=false);
-  [...Object.keys(B),'pick'].forEach(k=>{
-    const b=document.createElement('button'); b.className='mcslot'+(k===tool?' on':''); b.dataset.k=k;
-    b.innerHTML= k==='pick' ? `<span class="mcico">⛏️</span><small>Piccone</small>` : `<span class="mcico mc-${k}"></span><small>${B[k].n}<br><b>${B[k].p} €</b></small>`;
-    b.onclick=()=>{ tool=k; bar.querySelectorAll('.mcslot').forEach(x=>x.classList.toggle('on',x===b)); blip(600); };
-    bar.appendChild(b);
-  });
-  function counts(){ const c={brick:0,wood:0,glass:0,door:0,roof:0,solar:0,sign:0}; let sp=0;
-    grid.forEach(row=>row.forEach(v=>{ if(B[v]){ c[v]++; sp+=B[v].p; } })); return [c,sp]; }
-  function act(r,c,first){
-    if(opened||r===ROWS-1) return; finishTyping();
-    const v=grid[r][c];
-    if(tool==='pick'){ if(v){ grid[r][c]=null; blip(300); } }
-    else if(v!==tool){
-      const [,sp]=counts(); const delta=B[tool].p-(B[v]?B[v].p:0);
-      if(sp+delta>BUDGET){ if(first){ beep(false); ban('ko','💸 Budget finito! Togli qualche blocco con il piccone.'); } return; }
-      grid[r][c]=tool; blip(420+Math.random()*80);
-    }
-    render();
-  }
-  function render(){
-    grid.forEach((row,r)=>row.forEach((v,c)=>{ cellEls[r*COLS+c].className='mc-cell'+(v?' mc-'+v:''); }));
-    const [c,sp]=counts();
-    const left=BUDGET-sp;
-    wrap.querySelector('#mcBud').textContent=`Spesa: ${sp} € / 1.000 € • restano ${left} €`;
-    const ok=REQ.map(([t,f])=>[f(c,sp),t]);
-    wrap.querySelector('#mcreq').innerHTML=ok.map(([o,t])=>`<li class="${o?'y':''}">${o?'✅':'⬜'} ${t}</li>`).join('');
-    wrap.querySelector('#mcopen').disabled=!ok.every(x=>x[0]);
-  }
-  render();
-  wrap.querySelector('#mcclear').onclick=()=>{ if(opened) return; for(let r=0;r<ROWS-1;r++) grid[r].fill(null); render(); };
-  wrap.querySelector('#mcopen').onclick=()=>{
-    if(opened) return; opened=true;
-    const [c,sp]=counts();
-    const ricVendite=600+120*Math.min(c.glass,4), ricInsegna=250;
-    const ric=ricVendite+ricInsegna;
-    const cPers=500, cEn=Math.max(30,220-70*c.solar);
-    const costi=cPers+cEn, utile=ric-costi, mesi=Math.ceil(sp/utile);
-    const eur=n=>n.toLocaleString('it-IT')+' €';
-    const rep=document.createElement('div'); rep.className='mcrep';
-    rep.innerHTML=`<b>📒 Il tuo negozio: primo mese</b>
-      <table><tr><td>🏗️ Investimento (costruzione)</td><td>${eur(sp)}</td></tr>
-      <tr class="pos"><td>🛍️ Ricavi dalle vendite (${Math.min(c.glass,4)} vetrine)</td><td>+ ${eur(ricVendite)}</td></tr>
-      <tr class="pos"><td>🪧 Clienti in più grazie all'insegna</td><td>+ ${eur(ricInsegna)}</td></tr>
-      <tr class="neg"><td>👩‍💼 Personale e merce</td><td>− ${eur(cPers)}</td></tr>
-      <tr class="neg"><td>⚡ Energia (${c.solar} ${c.solar===1?'pannello solare':'pannelli solari'})</td><td>− ${eur(cEn)}</td></tr>
-      <tr class="tot"><td>💰 Utile del mese</td><td>${eur(utile)}</td></tr></table>
-      <div>Recuperi l'investimento in circa <b>${mesi} ${mesi===1?'mese':'mesi'}</b>.</div>`;
-    wrap.appendChild(rep);
-    cellEls.forEach(e=>e.style.cursor='default');
-    const pts= mesi<=2?10: mesi<=3?9: mesi<=4?8:7;
-    gameDone(st,pts,`Il negozio è aperto! 🎉 Hai investito ${eur(sp)} e ogni mese guadagni ${eur(utile)}. Le vetrine e l'insegna portano clienti, i pannelli solari fanno risparmiare: questa è la gestione d'impresa!`,next);
-  };
-};
-
 /* ---------- 📲 DM CHALLENGE: rispondi ai clienti stranieri ----------
    Testi controllati: ogni risposta corretta è grammaticalmente giusta
    e la traduzione italiana corrisponde al messaggio. In francese si usa
@@ -1832,66 +1436,48 @@ GAMES.caption = (st,next)=>{
   load();
 };
 
-/* ================= SALVATAGGIO PUNTEGGI (TXT / XML) =================
-   Ogni partita conclusa viene registrata in questo browser (classifica),
-   e si può scaricare come file .txt o .xml.                              */
-const HIST_KEY='wcm_tour_classifica';
-function loadHist(){ try{ return JSON.parse(localStorage.getItem(HIST_KEY))||[]; }catch(e){ return []; } }
-function storeHist(h){ try{ localStorage.setItem(HIST_KEY,JSON.stringify(h)); }catch(e){} }
+/* ================= PUNTEGGIO FINALE: salvataggio in .txt / .xml ================= */
 function currentResult(){
   return { nome:S.name, data:new Date().toISOString(), xp:S.score, livello:RANKS[rankOf(S.score)][1].replace(/^\S+\s/,''),
     giuste:S.firstTry, attivita:S.total, badge:S.badges.map(b=>b[1]) };
 }
 function fmtDate(iso){ const d=new Date(iso); return d.toLocaleDateString('it-IT')+' '+d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'}); }
 function xmlEsc(s){ return String(s).replace(/[<>&'"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'}[c])); }
-function toXML(list){
-  const sorted=list.slice().sort((a,b)=>b.xp-a.xp);
+function toXML(r){
   return `<?xml version="1.0" encoding="UTF-8"?>
-<classifica corso="Servizi Commerciali – Web Community Manager" classe="1ª Q" istituto="IIS Fermi Polo Montale" esportata="${new Date().toISOString()}">
-${sorted.map((r,i)=>`  <partita posizione="${i+1}">
-    <nome>${xmlEsc(r.nome)}</nome>
-    <data>${r.data}</data>
-    <xp>${r.xp}</xp>
-    <livello>${xmlEsc(r.livello)}</livello>
-    <giuste_al_primo_colpo>${r.giuste}</giuste_al_primo_colpo>
-    <attivita>${r.attivita}</attivita>
-    <badge>
-${r.badge.map(b=>`      <nome>${xmlEsc(b)}</nome>`).join('\n')}
-    </badge>
-  </partita>`).join('\n')}
-</classifica>
+<risultato corso="Servizi Commerciali – Web Community Manager" classe="1ª Q" istituto="IIS Fermi Polo Montale">
+  <nome>${xmlEsc(r.nome)}</nome>
+  <data>${r.data}</data>
+  <xp>${r.xp}</xp>
+  <livello>${xmlEsc(r.livello)}</livello>
+  <giuste_al_primo_colpo>${r.giuste}</giuste_al_primo_colpo>
+  <attivita>${r.attivita}</attivita>
+  <badge>
+${r.badge.map(b=>`    <nome>${xmlEsc(b)}</nome>`).join('\n')}
+  </badge>
+</risultato>
 `;
 }
-function toTXT(list,title){
-  const sorted=list.slice().sort((a,b)=>b.xp-a.xp);
-  const line='='.repeat(56);
-  return `${title}\nServizi Commerciali – Web Community Manager • Classe 1ª Q • IIS Fermi Polo Montale\nEsportato il ${fmtDate(new Date().toISOString())}\n${line}\n\n`+
-    sorted.map((r,i)=>`${sorted.length>1?(i+1)+'. ':''}${r.nome}\n   Data: ${fmtDate(r.data)}\n   XP: ${r.xp}   Livello: ${r.livello}\n   Giuste al primo colpo: ${r.giuste} su ${r.attivita} attività\n   Badge: ${r.badge.join(', ')}\n`).join('\n');
+function toTXT(r){
+  return `RISULTATO – IL TOUR DEL WEB COMMUNITY MANAGER
+Servizi Commerciali – Web Community Manager • Classe 1ª Q • IIS Fermi Polo Montale
+${'='.repeat(56)}
+
+Nome: ${r.nome}
+Data: ${fmtDate(r.data)}
+XP: ${r.xp}   Livello: ${r.livello}
+Giuste al primo colpo: ${r.giuste} su ${r.attivita} attività
+Badge: ${r.badge.join(', ')}
+`;
 }
 function download(name,text,mime){
-  const blob=new Blob(['﻿'+text],{type:mime+';charset=utf-8'});
+  const blob=new Blob(['\ufeff'+text],{type:mime+';charset=utf-8'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
   document.body.appendChild(a); a.click();
   setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1000);
 }
 const fileStamp=()=>{ const d=new Date(), p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}-${p(d.getMinutes())}`; };
-const safeName=n=>n.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9]+/g,'_').slice(0,20)||'studente';
-
-function showLeaderboard(){
-  const h=loadHist().slice().sort((a,b)=>b.xp-a.xp);
-  const ov=document.createElement('div'); ov.className='overlay';
-  ov.innerHTML=`<div class="modal ach" style="max-width:680px">
-    <div class="bigEmoji">🏆</div><h2>Classifica 1ª Q</h2>
-    <p style="font-size:13px;color:#c4b5fd">Partite giocate su questo dispositivo: ${h.length}</p>
-    ${h.length? `<div class="lbwrap"><table class="lb"><tr><th>#</th><th>Nome</th><th>XP</th><th>Livello</th><th>Data</th></tr>
-      ${h.slice(0,30).map((r,i)=>`<tr><td>${['🥇','🥈','🥉'][i]||i+1}</td><td>${escapeHtml(r.nome)}</td><td><b>${r.xp}</b></td><td>${escapeHtml(r.livello)}</td><td>${fmtDate(r.data)}</td></tr>`).join('')}
-      </table></div>` : '<p>Nessuna partita salvata ancora.</p>'}
-    <div class="lbbtns">
-      <button class="btn" data-a="close">Chiudi</button>
-    </div></div>`;
-  ov.querySelector('[data-a="close"]').onclick=()=>ov.remove();
-  document.body.appendChild(ov);
-}
+const safeName=n=>n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]+/g,'_').slice(0,20)||'studente';
 
 /* ---------- ⛏️ CANTIERE 3D (stile Minecraft): costruisci un edificio vero e vendilo ----------
    Comandi: clic sinistro = piazza (tieni premuto e trascina per costruire una fila sullo stesso piano)
@@ -2073,7 +1659,6 @@ GAMES.craft3d = (st,next)=>{
     if(!noHist) hist.push(['del',key,b.type]); blip(250); update(); }
   function undo(){ if(sold) return; const h=hist.pop(); if(!h){ ban('info','Niente da annullare.'); return; }
     const c=h[1].split(',').map(Number); if(h[0]==='add') removeBlock(c,true); else addBlock(c,h[2],true); }
-  window.__c3={add:(x,y,z,t)=>addBlock([x,y,z],t), n:()=>blocks.size, types:()=>[...blocks.values()].map(b=>b.type), sellable:()=>!wrap.querySelector('#c3sell').disabled}; // aggancio per i test automatici
 
   /* --- collaudo: l'edificio ha senso? --- */
   const WALL=t=>t==='brick'||t==='wood'||t==='glass'||t==='door';
@@ -2290,9 +1875,6 @@ function showFinal(){
   setState('idle');
   const max=S.total*10;
   const stars=S.score>=max*.85?'⭐⭐⭐':S.score>=max*.6?'⭐⭐':'⭐';
-  let record=0;
-  try{ record=+localStorage.getItem('wcm_tour_record2')||0;
-       if(S.score>record){ localStorage.setItem('wcm_tour_record2',S.score); record=S.score; } }catch(e){}
   const ov=document.createElement('div'); ov.className='overlay';
   ov.innerHTML=`<div class="modal"><div class="cert">
     <div style="display:flex;justify-content:center;gap:10px;align-items:flex-end">
@@ -2304,7 +1886,7 @@ function showFinal(){
     <div class="rankbig">${RANKS[rankOf(S.score)][1]}</div>
     <p>Si certifica che <b style="font-size:22px">${escapeHtml(S.name)}</b><br>ha completato il tour del corso<br><b>Servizi Commerciali – Web Community Manager</b><br>Classe 1ª Q</p>
     <p style="font-size:30px;margin:6px 0">${stars}</p>
-    <p>XP totali: <b>${S.score}</b> • Risposte giuste al primo colpo: <b>${S.firstTry}</b><br><small>Record su questo computer: ${record}</small></p>
+    <div class="finalscore"><div><b>${S.score}</b><small>XP totali</small></div><div><b>${S.firstTry}/${S.total}</b><small>giuste al primo colpo</small></div><div><b>${S.badges.length}</b><small>badge</small></div></div>
     <div class="badges">${S.badges.map(b=>`<span class="badge">${b[0]} ${b[1]}</span>`).join('')}</div>
     <p style="font-weight:800;color:var(--accent);font-size:18px">Ti aspettiamo in 1ª Q! 👋</p>
     <p style="font-size:13px;color:var(--muted)">Firmato: il prof. Barella</p>
@@ -2312,13 +1894,11 @@ function showFinal(){
     <div class="lbbtns" style="margin-top:14px">
       <button class="btn alt" id="dlTxt">📄 Salva risultato (.txt)</button>
       <button class="btn alt" id="dlXml">🧾 Salva risultato (.xml)</button>
-      <button class="btn alt" id="seeLb">🏆 Classifica</button>
       <button class="btn" id="again">🔄 Gioca di nuovo</button></div>
-    <p class="hint" style="color:var(--muted)">${S.test?'🔑 Modalità docente: risultato non salvato in classifica.':'Il risultato è già registrato nella classifica di questo dispositivo.'}</p></div>`;
-  const res=currentResult(); if(!S.test){ const hist=loadHist(); hist.push(res); storeHist(hist); }
-  ov.querySelector('#dlTxt').onclick=()=>download(`risultato-${safeName(S.name)}-${fileStamp()}.txt`,toTXT([res],'RISULTATO – IL TOUR DEL WEB COMMUNITY MANAGER'),'text/plain');
-  ov.querySelector('#dlXml').onclick=()=>download(`risultato-${safeName(S.name)}-${fileStamp()}.xml`,toXML([res]),'application/xml');
-  ov.querySelector('#seeLb').onclick=()=>showLeaderboard();
+</div>`;
+  const res=currentResult();
+  ov.querySelector('#dlTxt').onclick=()=>download(`risultato-${safeName(S.name)}-${fileStamp()}.txt`,toTXT(res),'text/plain');
+  ov.querySelector('#dlXml').onclick=()=>download(`risultato-${safeName(S.name)}-${fileStamp()}.xml`,toXML(res),'application/xml');
   ov.querySelector('#again').onclick=()=>{ ov.remove(); showStart(); };
   document.body.appendChild(ov);
   beep(true);
@@ -2343,14 +1923,13 @@ function showStart(){
     <p style="margin:0"><b>Come ti chiami?</b></p>
     <input id="nameIn" maxlength="18" placeholder="Scrivi il tuo nome" autocomplete="off">
     <br><button class="btn" id="goBtn">Inizia il tour 🚀</button>
-    <button class="btn alt" id="lbBtn" style="margin-left:6px">🏆 Classifica</button>
+
     <p class="hint">Muoviti con le frecce ◀ ▶, con i pulsanti sotto il gioco o cliccando sul pavimento.<br>Rispondi con A, B, C • Invio per andare avanti.</p></div>`;
   ov.querySelectorAll('.pick button').forEach(b=>b.onclick=()=>{
     S.look=b.dataset.l; ov.querySelectorAll('.pick button').forEach(x=>x.classList.toggle('sel',x===b));
   });
   const go=()=>{ S.name=ov.querySelector('#nameIn').value.trim()||'Ospite'; ov.remove(); startScene(0); };
   ov.querySelector('#goBtn').onclick=go;
-  ov.querySelector('#lbBtn').onclick=()=>showLeaderboard();
   ov.querySelector('#nameIn').addEventListener('keydown',e=>{ if(e.key==='Enter') go(); });
   document.body.appendChild(ov);
   setTimeout(()=>ov.querySelector('#nameIn').focus(),50);
@@ -2385,7 +1964,7 @@ document.addEventListener('keyup',e=>{
 /* ================= 🔑 MODALITÀ DOCENTE (trucco segreto) =================
    Come si attiva: clicca 5 volte di fila, velocemente, sul logo in alto a sinistra,
    poi scrivi il codice segreto. Si può cambiare qui sotto.
-   In modalità docente si può saltare a qualsiasi stanza e i risultati NON finiscono in classifica. */
+   In modalità docente si può saltare a qualsiasi stanza per controllarla. */
 const CODICE_DOCENTE='barella';
 (function(){
   let clicks=0, t0=0;
@@ -2411,13 +1990,13 @@ function askCode(){
 }
 function drawTeacherBadge(){
   let b=document.getElementById('tbadge');
-  if(S.test && !b){ b=document.createElement('span'); b.id='tbadge'; b.textContent='🔑 DOCENTE'; b.title='Modalità docente: i risultati non vanno in classifica'; document.getElementById('hud').prepend(b); }
+  if(S.test && !b){ b=document.createElement('span'); b.id='tbadge'; b.textContent='🔑 DOCENTE'; b.title='Modalità docente attiva'; document.getElementById('hud').prepend(b); }
   if(!S.test && b) b.remove();
 }
 function teacherPanel(){
   const ov=document.createElement('div'); ov.className='overlay';
   ov.innerHTML=`<div class="modal ach" style="max-width:560px"><h2>🔑 Modalità docente</h2>
-    <p style="font-size:13px;color:#c4b5fd">Salta direttamente a una stanza. In questa modalità i risultati non vengono salvati in classifica.</p>
+    <p style="font-size:13px;color:#c4b5fd">Salta direttamente a una stanza per controllarla.</p>
     <div class="tgrid">${SCENES.map((s,i)=>`<button class="btn alt" data-i="${i}">${i+1}. ${s.tag}</button>`).join('')}</div>
     <div class="lbbtns"><button class="btn alt" id="toff">Esci dalla modalità docente</button><button class="btn" id="tclose">Chiudi</button></div></div>`;
   ov.querySelectorAll('.tgrid button').forEach(b=>b.onclick=()=>teacherJump(+b.dataset.i));
