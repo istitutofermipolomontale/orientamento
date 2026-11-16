@@ -383,6 +383,9 @@ pre#hlcode .newl{background:rgba(250,204,21,.25);animation:pop .4s}
 .finalscore div{background:linear-gradient(135deg,#4f46e5,#db2777);color:#fff;border-radius:14px;padding:8px 14px;min-width:96px}
 .finalscore b{display:block;font-size:28px;line-height:1.1}
 .finalscore small{font-size:12px;opacity:.9}
+
+/* ===== v13 ===== */
+.c3cam button.on{background:#f59e0b;color:#1e1b4b}
 </style>
 </head>
 <body>
@@ -586,14 +589,13 @@ const SCENES = [
    npcs:[{sp:'ros',x:57,patrol:[52,62]},{sp:'vdn',x:74,patrol:[70,82]}],
    enter:'Benvenuto nella <b>Global Social Room</b>. La prof.ssa Rossi e il prof. Verdini ti aspettano: <b>raggiungili</b>!',
    lines:[
-    ['ros','Hi {nome}! Sono la prof.ssa Rossi, Inglese. Qui le lingue non si ripetono a memoria: si <b>usano</b>, come nel lavoro vero.'],
-    ['vdn','Et moi, prof. Verdini, Francese. Missione: diventi il <b>social media manager</b> di «Riviera Gelato». I clienti scrivono da Londra e da Parigi: rispondi nella loro lingua!']
+    ['ros','Hi {nome}! Sono la prof.ssa Rossi (Inglese) e lui è il prof. Verdini (Francese). Oggi sei il <b>social media manager</b> di «Riviera Gelato»: rispondi ai clienti stranieri nella loro lingua!']
    ],
    steps:[
     {type:'game', kind:'dm', sp:'ros',
-     intro:'📲 Ti arrivano i messaggi dei clienti. Scegli la risposta migliore: ogni buona risposta ti fa guadagnare <b>follower</b>!'},
+     intro:'📲 Arrivano 3 messaggi: scegli la risposta giusta, nella lingua del cliente!'},
     {type:'game', kind:'caption', sp:'vdn',
-     intro:'✍️ Ora scrivi la didascalia dei post per l\'estero: clicca le parole nell\'ordine giusto.'}
+     intro:'✍️ Ultima cosa: metti in ordine le parole delle didascalie di 2 post.'}
    ],
    badge:['🌍','Global Community Manager'] },
 
@@ -715,44 +717,33 @@ const SCENES = [
    ],
    badge:['🏗️','Manager d\'Impresa'] },
 
- { tag:'Diritto', place:'📍 Aula di Diritto – Costituzione e regole della rete', windows:true,
+ { tag:'Diritto', place:'📍 Aula di Diritto – Costituzione e privacy', windows:true,
    wall:'linear-gradient(#fef9c3,#fefce8)', floor:'#a16207',
-   board:'📜 Costituzione • 🔒 GDPR',
+   board:'📜 Costituzione • 🔒 Privacy',
    props:[['desk',28],['⚖️',28,25,32],['📜',10,60,36],['🇮🇹',22,62,30],['🔒',88,62,36],['🛡️',86,22,44]],
    npcs:[{sp:'leo',x:64,patrol:[56,76]}],
    enter:'Ultima aula: <b>Diritto</b>! <b>Raggiungi</b> il prof. Leone.',
    lines:[
-    ['leo','Benvenuto! Si parte dalla legge più importante d\'Italia: la <b>Costituzione</b>, in vigore dal 1° gennaio 1948. Contiene i diritti e i doveri di tutti noi.'],
-    ['leo','Poi vediamo le regole della rete: i tuoi <b>dati personali</b> vanno protetti. In Europa c\'è il <b>GDPR</b>: i dati di una persona si usano solo con il suo consenso.']
+    ['leo','Benvenuto! Due sfide veloci: la <b>Costituzione</b>, la legge più importante d\'Italia, e la <b>privacy</b> sui social. Basta il buon senso!']
    ],
    steps:[
     {type:'game', kind:'sort', sp:'leo', title:'Giusto o no per la Costituzione?',
-     intro:'📜 Leggi ogni situazione e decidi: <b>rispetta la Costituzione</b> oppure <b>va contro</b>? Non serve sapere gli articoli: basta il buon senso!',
-     bins:[['✅','Rispetta la Costituzione'],['❌','Va contro la Costituzione']],
+     intro:'📜 Per ogni situazione decidi: <b>rispetta la Costituzione</b> oppure <b>va contro</b>?',
+     bins:[['✅','Rispetta la Costituzione'],['❌','Va contro']],
      cards:[
-      {t:'🏫 Una scuola non accetta un ragazzo perché è straniero.', a:1, fb:'Va contro: la Costituzione dice che <b>la scuola è aperta a tutti</b> (art. 34).'},
-      {t:'⚖️ Davanti alla legge, ricchi e poveri sono trattati allo stesso modo.', a:0, fb:'Giusto: tutti i cittadini <b>sono uguali davanti alla legge</b> (art. 3).'},
-      {t:'📱 Qualcuno legge di nascosto i messaggi sul tuo telefono.', a:1, fb:'Va contro: i messaggi e ogni forma di comunicazione <b>sono segreti</b> (art. 15).'},
-      {t:'🗣️ In assemblea di classe dici la tua opinione con rispetto.', a:0, fb:'Giusto: tutti possono <b>esprimere liberamente il proprio pensiero</b> (art. 21).'},
-      {t:'💶 Una donna viene pagata meno di un uomo per lo stesso lavoro.', a:1, fb:'Va contro: a parità di lavoro, <b>la donna ha la stessa paga</b> dell\'uomo (art. 37).'},
-      {t:'🧾 Ogni cittadino paga le tasse in base a quanto guadagna.', a:0, fb:'Giusto: tutti contribuiscono alle spese pubbliche <b>secondo le proprie possibilità</b> (art. 53).'}
+      {t:'🏫 Una scuola non accetta un ragazzo perché è straniero.', a:1, fb:'Va contro: <b>la scuola è aperta a tutti</b> (art. 34).'},
+      {t:'⚖️ Davanti alla legge, ricchi e poveri sono trattati allo stesso modo.', a:0, fb:'Giusto: <b>tutti sono uguali davanti alla legge</b> (art. 3).'},
+      {t:'📱 Qualcuno legge di nascosto i messaggi sul tuo telefono.', a:1, fb:'Va contro: i messaggi <b>sono segreti</b> (art. 15).'},
+      {t:'🗣️ In classe dici la tua opinione, con rispetto.', a:0, fb:'Giusto: tutti possono <b>esprimere il proprio pensiero</b> (art. 21).'}
      ]},
-    {type:'q', sp:'leo', q:'La Costituzione dice che tutti possono esprimere liberamente il proprio pensiero. Allora sui social si può insultare qualcuno?', opts:[
-     {t:'Sì, è la mia libertà di parola', fb:'No: la libertà di pensiero non dà il diritto di offendere. Insultare o diffamare una persona è vietato dalla legge, anche online. Riprova!'},
-     {t:'No: posso esprimere le mie idee, ma senza offendere o diffamare gli altri', ok:true, fb:'Esatto! La mia libertà finisce dove inizia il rispetto degli altri. Vale a scuola, in strada e anche sui social.'},
-     {t:'Sì, se uso un profilo falso', fb:'Un profilo falso non cancella la responsabilità: chi insulta online può essere identificato. Riprova!'}
-    ]},
     {type:'game', kind:'sort', sp:'leo', title:'Posso pubblicarlo?',
-     intro:'Stai per pubblicare un post. Per ogni cosa decidi: <b>si può pubblicare</b> o è <b>meglio di no</b>?',
+     intro:'🔒 Stai per pubblicare un post: <b>si può</b> o è <b>meglio di no</b>?',
      bins:[['👍','Si può'],['🔒','Meglio di no']],
      cards:[
-      {t:'🔑 La password del tuo profilo', a:1, fb:'Mai! La password è solo tua, non va data a nessuno.'},
+      {t:'🔑 La password del tuo profilo', a:1, fb:'Mai! La password è solo tua.'},
       {t:'🎨 Un disegno che hai fatto tu', a:0, fb:'Si può: è una tua creazione!'},
-      {t:'🏠 Il tuo indirizzo di casa', a:1, fb:'Meglio di no: sconosciuti potrebbero sapere dove abiti.'},
-      {t:'📸 La foto di un amico, senza chiedergli niente', a:1, fb:'Meglio di no: prima serve il suo consenso.'},
-      {t:'⚽ Il risultato della partita della tua squadra del cuore', a:0, fb:'Si può: è un\'informazione che non riguarda la privacy di nessuno.'},
-      {t:'📍 Dove sei in questo momento, con la posizione in diretta', a:1, fb:'Meglio di no: la posizione in tempo reale può essere pericolosa.'},
-      {t:'📞 Il tuo numero di telefono in un commento pubblico', a:1, fb:'Meglio di no: lo vedrebbero tutti, anche gli sconosciuti.'}
+      {t:'📸 La foto di un amico, senza chiedergli niente', a:1, fb:'Meglio di no: prima serve il suo <b>consenso</b>.'},
+      {t:'🏠 Il tuo indirizzo di casa', a:1, fb:'Meglio di no: gli sconosciuti saprebbero dove abiti.'}
      ]}
    ],
    badge:['🛡️','Guardiano dei Diritti'] },
@@ -1113,13 +1104,12 @@ GAMES.sort = (st,next)=>{
     if(ok){ good++; blip(900); cheer(st.sp); ban('ok','✅ '+c.fb); }
     else { beep(false); anim(npcEl(st.sp),'shake'); ban('ko','❌ '+c.fb); }
     wrap.querySelector('#srInfo').textContent=`${k+1} / ${deck.length} • ✅ ${good}`;
-    const nb=nextButton(k+1<deck.length?'Prossima ▶':'Fine ▶',()=>{
-      nb.remove(); k++;
+    const go=()=>{ k++;
       if(k<deck.length){ ban('',''); show(); }
       else { const pts=Math.round(good*10/deck.length);
-        gameDone(st,pts, good===deck.length?'Perfetto, tutte giuste! Sei proprio furbo! 🦊':`Hai indovinato ${good} su ${deck.length}. Adesso sai riconoscerle meglio!`, next); }
-    });
-    panel.appendChild(nb);
+        gameDone(st,pts, good===deck.length?'Perfetto, tutte giuste! 🦊':`Hai indovinato ${good} su ${deck.length}. Adesso sai riconoscerle meglio!`, next); } };
+    if(ok) setTimeout(go,1300);                      // risposta giusta: si va avanti da soli
+    else { const nb=nextButton(k+1<deck.length?'Ho capito, avanti ▶':'Fine ▶',()=>{ nb.remove(); go(); }); panel.appendChild(nb); }
   }
   show();
 };
@@ -1335,9 +1325,6 @@ GAMES.dm = (st,next)=>{
     {f:'jake_99', fl:'🇬🇧', t:'Your ice cream is amazing! 😍', it:'Il vostro gelato è fantastico!',
      o:['Ok.','Grazie mille!','Thank you so much! See you soon! 😊'], a:2,
      w:['«Ok.» è troppo freddo: un complimento merita una risposta gentile!','Jake scrive in inglese: rispondi in inglese!','']},
-    {f:'chloe.nice', fl:'🇫🇷', t:`Je peux venir avec mon chien${NB}? 🐶`, it:'Posso venire con il mio cane?',
-     o:[`Bien sûr${NB}! Les chiens sont les bienvenus. 🐾`,'Yes, dogs are welcome!',`Un chien${NB}? Quel chien${NB}?`], a:0,
-     w:['','Chloé scrive in francese: rispondi in francese!','«Un cane? Quale cane?»: non è una risposta!']}
   ];
   const panel=$('panel'); panel.innerHTML='';
   const wrap=document.createElement('div'); wrap.className='gbox dark';
@@ -1387,9 +1374,8 @@ GAMES.dm = (st,next)=>{
 GAMES.caption = (st,next)=>{
   say(st.sp,st.intro);
   const CAP=[
-    {fl:'🇬🇧', it:'Prova il nostro nuovo gelato al limone!', w:['Try','our','new','lemon','ice','cream!'], img:'🍋', bg:'linear-gradient(135deg,#facc15,#22c55e)', tags:'#icecream #lemon #summer'},
-    {fl:'🇫🇷', it:'Venite ad assaggiare il nostro gelato!', w:['Venez','goûter','notre',`glace${NB}!`], img:'🍦', bg:'linear-gradient(135deg,#f472b6,#fb923c)', tags:'#glace #riviera #vacances'},
-    {fl:'🇬🇧', it:'Ci vediamo al mare!', w:['See','you','by','the','sea!'], img:'🌊', bg:'linear-gradient(135deg,#22d3ee,#6366f1)', tags:'#ventimiglia #sea #icecream'}
+    {fl:'🇬🇧', it:'Prova il nostro gelato al limone!', w:['Try','our','lemon','ice','cream!'], img:'🍋', bg:'linear-gradient(135deg,#facc15,#22c55e)', tags:'#icecream #lemon #summer'},
+    {fl:'🇫🇷', it:'Venite ad assaggiare il nostro gelato!', w:['Venez','goûter','notre',`glace${NB}!`], img:'🍦', bg:'linear-gradient(135deg,#f472b6,#fb923c)', tags:'#glace #riviera #vacances'}
   ];
   const panel=$('panel'); panel.innerHTML='';
   const wrap=document.createElement('div'); wrap.className='gbox';
@@ -1427,7 +1413,7 @@ GAMES.caption = (st,next)=>{
       beep(true); cheer(st.sp); ban('ok','✅ Perfetto, post pubblicato! 🚀'); k++;
       if(k<CAP.length){ setTimeout(()=>{ ban('',''); load(); },900); }
       else { wrap.querySelector('#cpchk').disabled=true;
-        gameDone(st,Math.max(4,10-2*errors),`Magnifique${NB}! Tre post in due lingue: la tua gelateria ora parla al mondo intero. 🌍`,next); }
+        gameDone(st,Math.max(4,10-2*errors),`Magnifique${NB}! Due post in due lingue: la tua gelateria ora parla al mondo intero. 🌍`,next); }
     } else {
       errors++; beep(false); anim(wrap.querySelector('#cpans'),'bad',400); anim(npcEl(st.sp),'shake');
       ban('ko','❌ L\'ordine non è giusto. Clicca le parole sopra per rimetterle a posto e riprova!');
@@ -1496,12 +1482,13 @@ GAMES.craft3d = (st,next)=>{
   wrap.innerHTML=`<div class="gtitle">⛏️ Cantiere 3D <span id="c3info">Materiali: 0 € / ${BUDGET.toLocaleString('it-IT')} €</span></div>
     <div class="c3wrap">
       <div><div class="c3view" id="c3view">
-          <div class="c3help">🖱️ Clic: costruisci • Trascina: gira la visuale • Clic destro: togli • Rotella: zoom • Shift + trascina: fila di blocchi</div>
-          <div class="c3cam"><button data-c="u" title="Annulla l'ultima mossa">↶</button><button data-c="l" title="Gira a sinistra">⟲</button><button data-c="r" title="Gira a destra">⟳</button><button data-c="i" title="Avvicina">＋</button><button data-c="o" title="Allontana">－</button></div>
+          <div class="c3help">🖱️ Clic: costruisci • Trascina: gira • Clic destro: togli • Rotella: zoom • ⚡ Shift (o 🔲) + trascina: costruzione rapida</div>
+          <div class="c3cam"><button data-c="m" title="Costruzione rapida a rettangolo">🔲</button><button data-c="u" title="Annulla l'ultima mossa">↶</button><button data-c="l" title="Gira a sinistra">⟲</button><button data-c="r" title="Gira a destra">⟳</button><button data-c="i" title="Avvicina">＋</button><button data-c="o" title="Allontana">－</button></div>
           <div class="c3start" id="c3start"><div><b>⛏️ Come si gioca</b><ol>
             <li>Scegli un blocco nella <b>barra in basso</b> (o con i tasti 1–8).</li>
             <li><b>Clic</b> sull'erba o su un blocco per costruire. <b>Clic destro</b> (o il ⛏️ piccone) per togliere.</li>
-            <li><b>Tieni premuto e trascina</b> il mouse per girare intorno alla costruzione; rotellina per avvicinarti. Trucco: con <b>Shift</b> premuto e trascinando costruisci una fila di blocchi.</li></ol>
+            <li><b>Tieni premuto e trascina</b> per girare intorno alla costruzione; rotellina per avvicinarti.</li>
+            <li>⚡ <b>Costruzione rapida</b>: tieni premuto <b>Shift</b> (o attiva 🔲) e trascina. Con mattoni, legno o vetro disegni in un colpo <b>tutte le pareti</b> di una stanza; con le tegole un <b>tetto intero</b>.</li></ol>
             L'azienda compra solo un <b>edificio vero</b>: una stanza chiusa, con porta, finestre e tetto. Leggi il contratto a destra!<br>
             <button class="btn" id="c3go">Ho capito, costruiamo! ⛏️</button></div></div>
         </div>
@@ -1611,19 +1598,31 @@ GAMES.craft3d = (st,next)=>{
   const cv=renderer.domElement;
   let act=null; // {mode:'paint'|'erase'|'rotate'|'maybe-right', layer, last, x, y}
   cv.addEventListener('contextmenu',e=>e.preventDefault());
-  // SINISTRO: clic = costruisci • trascina = gira la visuale • Maiuscolo (Shift) + trascina = fila di blocchi
+  // SINISTRO: clic = costruisci • trascina = gira la visuale • Shift (o 🔲) + trascina = costruzione rapida a rettangolo
   // DESTRO: clic = togli • trascina = gira la visuale
+  let rectMode=false;
+  const prevGroup=new THREE.Group(); scene.add(prevGroup);
+  const prevMat=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.5,depthWrite:false});
+  function rectCells(a,b){
+    const x0=Math.min(a[0],b[0]), x1=Math.max(a[0],b[0]), z0=Math.min(a[2],b[2]), z1=Math.max(a[2],b[2]);
+    const outline= tool==='brick'||tool==='wood'||tool==='glass';   // pareti: solo il perimetro • tetto/pannelli/siepi: pieno
+    const out=[];
+    for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++){ if(outline && x>x0&&x<x1&&z>z0&&z<z1) continue; out.push([x,a[1],z]); }
+    return out;
+  }
+  function showPreview(cells){ prevGroup.clear(); cells.forEach(c=>{ if(blocks.has(c.join(','))) return;
+    const m=new THREE.Mesh(geo,prevMat); m.scale.setScalar(.96); m.position.set(c[0]+.5,c[1]+.5,c[2]+.5); prevGroup.add(m); }); }
   cv.addEventListener('pointerdown',e=>{
     if(sold) return; finishTyping(); cv.setPointerCapture(e.pointerId);
-    act={btn:e.button, x:e.clientX, y:e.clientY, moved:false, mode:'pending', last:null};
-    if(e.button===0 && e.shiftKey && tool!=='pick'){ const p=pick(e); if(p){ act.mode='paint'; act.layer=p.add[1]; if(addBlock(p.add,tool)) act.last=p.add.join(','); } }
-    cv.style.cursor='grabbing';
+    act={btn:e.button, x:e.clientX, y:e.clientY, mode:'pending'};
+    if(e.button===0 && (e.shiftKey||rectMode) && tool!=='pick'){ const p=pick(e); if(p&&inside(p.add)){ act.mode='rect'; act.start=p.add; act.end=p.add; showPreview([p.add]); ghost.visible=false; } }
+    cv.style.cursor= act.mode==='rect'?'crosshair':'grabbing';
   });
   cv.addEventListener('pointermove',e=>{
     if(act){
       if(act.mode==='pending' && Math.abs(e.clientX-act.x)+Math.abs(e.clientY-act.y)>5){ act.mode='rotate'; ghost.visible=false; }
       if(act.mode==='rotate'){ camT.theta-=(e.clientX-act.x)*0.01; camT.phi=Math.max(0.35,Math.min(1.45,camT.phi-(e.clientY-act.y)*0.007)); act.x=e.clientX; act.y=e.clientY; return; }
-      if(act.mode==='paint'){ const c=pickOnLayer(e,act.layer); if(c){ const k=c.join(','); if(k!==act.last && !blocks.has(k)){ if(addBlock(c,tool,false,true)) act.last=k; } showGhost(c,false); } return; }
+      if(act.mode==='rect'){ const c=pickOnLayer(e,act.start[1]); if(c){ act.end=c; showPreview(rectCells(act.start,c)); } return; }
       return;
     }
     if(sold){ ghost.visible=false; return; }
@@ -1634,7 +1633,12 @@ GAMES.craft3d = (st,next)=>{
   function showGhost(c,red){ ghost.visible=true; ghost.position.set(c[0]+.5,c[1]+.5,c[2]+.5); ghost.material.color.set(red?0xff4444:0xffffff); }
   cv.addEventListener('pointerup',e=>{
     cv.style.cursor='';
-    if(act && act.mode==='pending'){            // clic senza trascinare
+    if(act && act.mode==='rect'){
+      prevGroup.clear();
+      const placed=[];
+      for(const c of rectCells(act.start,act.end)){ if(blocks.has(c.join(','))) continue; if(!addBlock(c,tool,true,true)) break; placed.push(c.join(',')); }
+      if(placed.length) hist.push(['group',placed]);
+    } else if(act && act.mode==='pending'){            // clic senza trascinare
       const p=pick(e);
       if(p){ if(act.btn===2||tool==='pick'){ if(p.del) removeBlock(p.del); } else if(act.btn===0) addBlock(p.add,tool); }
     }
@@ -1644,7 +1648,9 @@ GAMES.craft3d = (st,next)=>{
   cv.addEventListener('wheel',e=>{ e.preventDefault(); camT.r=Math.max(8,Math.min(30,camT.r+e.deltaY*0.01)); },{passive:false});
   wrap.querySelectorAll('.c3cam button').forEach(b=>b.onclick=()=>{ const c=b.dataset.c;
     if(c==='l') camT.theta+=0.5; if(c==='r') camT.theta-=0.5; if(c==='i') camT.r=Math.max(8,camT.r-2.5); if(c==='o') camT.r=Math.min(30,camT.r+2.5);
-    if(c==='u') undo(); });
+    if(c==='u') undo();
+    if(c==='m'){ rectMode=!rectMode; b.classList.toggle('on',rectMode);
+      ban('info', rectMode?'🔲 <b>Costruzione rapida attiva</b>: trascina sul terreno. Con mattoni, legno o vetro disegni il perimetro della stanza; con tegole, pannelli e siepi un rettangolo pieno. Per girare la visuale usa ⟲ ⟳ o il tasto destro.':'Costruzione rapida disattivata: trascinando giri la visuale.'); } });
   wrap.querySelector('#c3go').onclick=()=>{ wrap.querySelector('#c3start').remove(); blip(800); };
 
   function addBlock(c,type,noHist,quiet){
@@ -1658,6 +1664,7 @@ GAMES.craft3d = (st,next)=>{
   function removeBlock(c,noHist){ const key=c.join(','), b=blocks.get(key); if(!b) return; scene.remove(b.mesh); blocks.delete(key);
     if(!noHist) hist.push(['del',key,b.type]); blip(250); update(); }
   function undo(){ if(sold) return; const h=hist.pop(); if(!h){ ban('info','Niente da annullare.'); return; }
+    if(h[0]==='group'){ h[1].forEach(k=>removeBlock(k.split(',').map(Number),true)); return; }
     const c=h[1].split(',').map(Number); if(h[0]==='add') removeBlock(c,true); else addBlock(c,h[2],true); }
 
   /* --- collaudo: l'edificio ha senso? --- */
@@ -1701,7 +1708,6 @@ GAMES.craft3d = (st,next)=>{
     const a=analyze(); const mat=materials(), lab=blocks.size*LABOR, costi=mat+lab;
     const REQ=[
       [a.room>=4, `Una stanza chiusa da pareti, grande almeno 2×2 dentro${a.room?` (ora: ${a.room} caselle)`:''}`],
-      [a.room>=4&&a.h>=2, 'Pareti alte almeno 2 blocchi tutto intorno'],
       [a.door>=1, 'Una porta a piano terra che entra nella stanza'],
       [a.win>=2, `Almeno 2 finestre di vetro nelle pareti (ora: ${a.win})`],
       [a.room>=4&&a.roofOK, 'Un tetto di tegole che copre tutta la stanza'],
