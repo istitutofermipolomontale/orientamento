@@ -379,6 +379,31 @@
 
         .confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
 
+        /* Invito all'Open Day */
+        .openday {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 14px 36px 0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            text-decoration: none;
+            color: #ffffff;
+            background: linear-gradient(120deg, var(--brand), var(--brand-2));
+            box-shadow: 0 16px 28px -18px var(--brand);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .openday:hover { transform: translateY(-2px); box-shadow: 0 20px 32px -18px var(--brand); }
+        .openday:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+        .od-date { flex: 0 0 auto; width: 54px; border-radius: 12px; overflow: hidden; background: #ffffff; text-align: center; box-shadow: 0 8px 16px -10px rgba(0,0,0,.5); }
+        .od-date small { display: block; background: var(--accent); color: #ffffff; font-size: 11px; font-weight: 800; letter-spacing: .1em; padding: 3px 0; }
+        .od-date b { display: block; color: var(--ink); font-size: 24px; font-weight: 800; line-height: 1.25; }
+        .od-txt { flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; font-size: 17px; }
+        .od-txt small { font-size: 13.5px; font-weight: 600; opacity: 0.92; }
+        .od-go { flex: 0 0 auto; font-size: 14px; font-weight: 800; background: #ffffff; color: var(--brand); border-radius: 999px; padding: 8px 14px; white-space: nowrap; }
+        .od-btn { background: linear-gradient(120deg, var(--brand), var(--brand-2)); }
+        .od-hint { font-size: 14px; color: var(--muted); margin: -4px 4px 4px; line-height: 1.45; }
+
         .hidden { display: none !important; }
 
         @media (max-width: 600px) {
@@ -388,6 +413,8 @@
             .note { margin: 18px 18px 0; }
             main { padding: 22px 18px 8px; }
             .back { margin: 6px 18px 22px; }
+            .openday { margin: 12px 18px 0; flex-wrap: wrap; }
+            .od-go { width: 100%; text-align: center; }
             .opt { font-size: 16.5px; gap: 13px; padding: 11px 14px 11px 11px; border-radius: 18px; }
             .tile { width: 52px; height: 52px; border-radius: 14px; }
             .tile-ico { font-size: 25px; }
@@ -417,8 +444,13 @@
 
             <div class="note">
                 <span aria-hidden="true">💡</span>
-                <span>Il test fornisce una risposta puramente indicativa. Ti consigliamo di informarti e visitare le scuole per ottenere notizie e chiarimenti sui vari percorsi formativi.</span>
+                <span>Il test fornisce una risposta puramente indicativa. Per valutare meglio, <b>vieni a conoscere il nostro istituto all'Open Day</b>: potrai visitare i laboratori, parlare con docenti e studenti e chiarire ogni dubbio sui percorsi.</span>
             </div>
+            <a class="openday" id="openday" href="prenotazioni.html">
+                <span class="od-date" aria-hidden="true"><small id="od-month">DIC</small><b id="od-day">12</b></span>
+                <span class="od-txt"><b id="od-title">Open Day</b><small id="od-when"></small></span>
+                <span class="od-go">Prenota un laboratorio →</span>
+            </a>
 
             <main id="quiz-content"></main>
 
@@ -442,6 +474,16 @@
         // const COLORI_MANUALI = { primario: "#1d4ed8", secondario: "#0ea5e9" };
         // Usa un primario abbastanza scuro, cosi' il testo bianco resta leggibile.
         const COLORI_MANUALI = null;
+
+        // Open Day: data, orario e pagina di prenotazione dei laboratori
+        const OPEN_DAY = {
+            data: "sabato 12 dicembre",
+            giorno: "12",
+            mese: "DIC",
+            orario: "dalle 9:00 alle 18:00",
+            sedi: "plessi Fermi, Polo e Montale",
+            link: "prenotazioni.html"
+        };
 
         // Indirizzi di studio: nome, icona, eventuale sottotitolo e PDF collegato
         const SCHOOLS = {
@@ -509,12 +551,10 @@
             lavoro: {
                 title: "Preferisci occuparti di...",
                 options: [
-                    { l: "a", icon: "💶", text: "Economia e marketing",                                                  next: "lavoro_economia" },
-                    { l: "b", icon: "🗣️", text: "Lingue straniere",                                                     next: "lavoro_lingue" },
-                    { l: "c", icon: "🩺", text: "Professioni sanitarie",                                                 next: "lavoro_sanitarie" },
-                    { l: "d", icon: "📐", text: "Disegno tecnico",                                                       result: "CAT" },
-                    { l: "e", icon: "🔧", text: "Materie pratiche: impianti elettrici, meccanica e assistenza tecnica",  result: "MAN" },
-                    { l: "f", icon: "📱", text: "Web e Social Network in azienda",                                       result: "WEB" }
+                    { l: "a", icon: "💶", text: "Economia, marketing, web e social network", next: "lavoro_economia" },
+                    { l: "b", icon: "🗣️", text: "Lingue straniere",                          next: "lavoro_lingue" },
+                    { l: "c", icon: "🩺", text: "Professioni sanitarie",                      next: "lavoro_sanitarie" },
+                    { l: "d", icon: "🛠️", text: "Materie tecniche e cantiere",                next: "lavoro_tecnico" }
                 ]
             },
             lavoro_economia: {
@@ -522,7 +562,14 @@
                 options: [
                     { l: "x", icon: "🏢", text: "Diritto ed economia in ambito nazionale",       result: "AFM" },
                     { l: "y", icon: "🌐", text: "Diritto ed economia in ambito internazionale",  result: "RIM" },
-                    { l: "z", icon: "💻", text: "Diritto ed economia in ambito informatico web", result: "WEB" }
+                    { l: "z", icon: "📱", text: "Economia, marketing, web e social network in azienda", result: "WEB" }
+                ]
+            },
+            lavoro_tecnico: {
+                title: "Ti vedi di più come...",
+                options: [
+                    { l: "x", icon: "📐", text: "Geometra: disegnare progetti, costruire e lavorare in cantiere",         result: "CAT" },
+                    { l: "y", icon: "⚡", text: "Elettricista: impianti elettrici, meccanica e assistenza tecnica",       result: "MAN" }
                 ]
             },
             lavoro_lingue: {
@@ -683,7 +730,7 @@
         // ------------------------------------
 
         let currentStep = "start";
-        let history = [];   // elementi: { step, label }
+        let percorso = [];  // risposte date finora: { step, label }
         let resultKey = null;
 
         const content = document.getElementById("quiz-content");
@@ -694,6 +741,13 @@
         const logoWrap = document.getElementById("logo-wrap");
 
         if (COLORI_MANUALI) applyManual(COLORI_MANUALI);
+
+        // Riquadro Open Day in alto
+        document.getElementById("od-title").textContent = "Open Day · " + OPEN_DAY.data;
+        document.getElementById("od-day").textContent = OPEN_DAY.giorno;
+        document.getElementById("od-month").textContent = OPEN_DAY.mese;
+        document.getElementById("od-when").textContent = OPEN_DAY.orario + " · " + OPEN_DAY.sedi;
+        document.getElementById("openday").href = OPEN_DAY.link;
 
         logo.onerror = function () { logoWrap.style.display = "none"; };
         logo.onload = function () {
@@ -711,9 +765,9 @@
         }
 
         function renderCrumbs(parent) {
-            if (history.length === 0) return;
+            if (percorso.length === 0) return;
             const box = el("div", "crumbs");
-            history.forEach(function (h) { box.appendChild(el("span", "crumb", "✓ " + h.label)); });
+            percorso.forEach(function (h) { box.appendChild(el("span", "crumb", "✓ " + h.label)); });
             parent.appendChild(box);
         }
 
@@ -722,7 +776,7 @@
             const wrap = el("div", "step");
 
             renderCrumbs(wrap);
-            wrap.appendChild(el("span", "qnum", "Domanda " + (history.length + 1)));
+            wrap.appendChild(el("span", "qnum", "Domanda " + (percorso.length + 1)));
             wrap.appendChild(el("h2", null, step.title));
 
             const list = el("div", "options");
@@ -775,6 +829,11 @@
                 pdf.rel = "noopener";
                 actions.appendChild(pdf);
             }
+            const od = el("a", "btn primary od-btn", "🏫 Vieni a conoscerci all'Open Day di " + OPEN_DAY.data);
+            od.href = OPEN_DAY.link;
+            actions.appendChild(od);
+            actions.appendChild(el("p", "od-hint", "Visita i laboratori e parla con docenti e studenti: è il modo migliore per capire se questo percorso fa per te."));
+
             const again = el("button", "btn ghost", "🔄 Ricomincia il quiz");
             again.type = "button";
             again.addEventListener("click", restart);
@@ -862,14 +921,14 @@
             const node = isResult ? renderResult() : renderQuestion();
             content.appendChild(node);
 
-            backButton.classList.toggle("hidden", history.length === 0);
+            backButton.classList.toggle("hidden", percorso.length === 0);
 
             if (isResult) {
                 progress.textContent = "Percorso completato 🎉";
                 barFill.style.width = "100%";
             } else {
-                progress.textContent = "Passo " + (history.length + 1);
-                barFill.style.width = Math.min(85, (history.length + 1) * 30) + "%";
+                progress.textContent = "Passo " + (percorso.length + 1);
+                barFill.style.width = Math.min(85, (percorso.length + 1) * 30) + "%";
             }
 
             // Mantiene esattamente la posizione di scorrimento di prima
@@ -897,30 +956,80 @@
             }
         }
 
+        // ---------- Navigazione: ogni domanda è una "pagina" della cronologia del browser ----------
+        // Così il pulsante "Torna indietro" della pagina e la freccia Indietro del browser
+        // (o il gesto indietro sul telefono) tornano alla domanda precedente, invece di uscire dal sito.
+        function snapshot() {
+            return { quiz: true, step: currentStep, percorso: percorso.slice(), result: resultKey };
+        }
+        function urlFor() {
+            if (currentStep === "result") return "#risultato-" + String(resultKey).toLowerCase();
+            if (currentStep === "start") return location.pathname + location.search;
+            return "#" + currentStep;
+        }
+        function restore(st) {
+            if (st && st.quiz && (st.step === "result" ? SCHOOLS[st.result] : STEPS[st.step])) {
+                currentStep = st.step;
+                percorso = Array.isArray(st.percorso) ? st.percorso.slice() : [];
+                resultKey = st.result || null;
+            } else {
+                currentStep = "start";
+                percorso = [];
+                resultKey = null;
+            }
+        }
+
         function choose(opt) {
-            history.push({ step: currentStep, label: opt.text });
+            percorso.push({ step: currentStep, label: opt.text });
             if (opt.result) {
                 resultKey = opt.result;
                 currentStep = "result";
             } else {
                 currentStep = opt.next;
             }
+            window.history.pushState(snapshot(), "", urlFor());
             render(true);
         }
 
+        // Pulsante "Torna indietro" della pagina: fa la stessa cosa della freccia del browser
         function goBack() {
-            if (history.length === 0) return;
-            currentStep = history.pop().step;
-            resultKey = null;
-            render(true);
+            if (percorso.length === 0) return;
+            const st = window.history.state;
+            if (st && st.quiz && st.percorso && st.percorso.length === percorso.length) {
+                window.history.back();          // il resto lo fa l'evento "popstate"
+            } else {
+                currentStep = percorso.pop().step;
+                resultKey = null;
+                window.history.replaceState(snapshot(), "", urlFor());
+                render(true);
+            }
         }
 
-        function restart() {
-            currentStep = "start";
-            history = [];
-            resultKey = null;
+        // Freccia Indietro / Avanti del browser
+        window.addEventListener("popstate", function (e) {
+            restore(e.state);
             render(true);
+        });
+
+        // "Ricomincia": torna alla prima domanda riportando indietro anche la cronologia,
+        // così dopo il riavvio il tasto Indietro non riporta al vecchio risultato
+        function restart() {
+            const passi = percorso.length;
+            const st = window.history.state;
+            if (passi > 0 && st && st.quiz && st.percorso && st.percorso.length === passi) {
+                window.history.go(-passi);
+            } else {
+                currentStep = "start";
+                percorso = [];
+                resultKey = null;
+                window.history.replaceState(snapshot(), "", urlFor());
+                render(true);
+            }
         }
+
+        // Avvio: se la pagina è stata ricaricata a metà quiz riprende da dove eri
+        restore(window.history.state);
+        window.history.replaceState(snapshot(), "", urlFor());
 
         backButton.addEventListener("click", goBack);
         render(false);
